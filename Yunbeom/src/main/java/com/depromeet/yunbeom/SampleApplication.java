@@ -12,8 +12,27 @@ public class SampleApplication {
 		String[] parts = result.split(" ");
 		long num1 = Long.parseLong(parts[0]);
 		long num2 = Long.parseLong(parts[2]);
-		for (String part : parts) {
-			System.out.println(part);
+
+		String operator = parts[1];
+
+		long answer = 0;
+
+		switch (operator) {
+			case "+":
+				answer = num1 + num2;
+				break;
+			case "-":
+				answer = num1 - num2;
+				break;
+			case "*":
+				answer = num1 * num2;
+				break;
+			case "/":
+				answer = num1 / num2;
+				break;
+			default:
+				throw new InvalidOperatorException();
 		}
+		System.out.println(answer);
 	}
 }
