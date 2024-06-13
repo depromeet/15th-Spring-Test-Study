@@ -13,11 +13,11 @@ public class CalculationRequestReaderTest {
 
         // when
         System.setIn(new ByteArrayInputStream("2 + 3".getBytes()));
-        String[] result = calculationRequestReader.read();
+        CalculationRequst calculationRequst = calculationRequestReader.read();
 
         // then
-        Assertions.assertEquals("2", result[0]);
-        Assertions.assertEquals("+", result[1]);
-        Assertions.assertEquals("3", result[2]);
+        Assertions.assertEquals(2, calculationRequst.getNum1());
+        Assertions.assertEquals("+", calculationRequst.getOperator());
+        Assertions.assertEquals(3, calculationRequst.getNum2());
     }
 }

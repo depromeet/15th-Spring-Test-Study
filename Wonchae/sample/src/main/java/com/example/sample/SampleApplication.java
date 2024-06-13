@@ -9,8 +9,7 @@ import java.util.Scanner;
 public class SampleApplication {
 
 	public static void main(String[] args) {
-		String[] parts = new CalculationRequestReader().read();
-		CalculationRequst calculationRequst = new CalculationRequst(parts);
+		CalculationRequst calculationRequst = new CalculationRequestReader().read();
 		long answer = new Calculator().calculate(
 				calculationRequst.getNum1(),
 				calculationRequst.getOperator(),

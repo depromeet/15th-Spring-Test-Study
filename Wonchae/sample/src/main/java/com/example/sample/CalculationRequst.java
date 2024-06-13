@@ -1,9 +1,9 @@
 package com.example.sample;
 
 public class CalculationRequst {
-    private long num1;
-    private String operator;
-    private long num2;
+    private final long num1;
+    private final String operator;
+    private final long num2;
 
     public CalculationRequst(String[] parts) {
         this.num1 = Long.parseLong(parts[0]);
