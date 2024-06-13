@@ -63,6 +63,19 @@ public class CalculatorTest {
         // then
         Assertions.assertEquals(2, result);
     }
+    @Test
+    public void 잘못된_연산자가_요청으로_들어올_경우_에러가_난다() {
+        // given
+        long num1 = 4;
+        String operator = "x";
+        long num2 = 2;
+        Calculator calculator = new Calculator();
 
+        // when
 
+        // then
+        Assertions.assertThrows(InvalidOperatorException.class, () -> {
+            calculator.calculate(num1, operator, num2);
+        });
+    }
 }
