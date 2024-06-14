@@ -81,5 +81,4 @@ public class CalculatorTest {
         // when, then
         assertThrows(InvalidOperatorException.class, () -> calculator.calculate(num1, num2, operator));
     }
-
 }
