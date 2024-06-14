@@ -11,23 +11,13 @@ public class Main {
         long num1 = Long.parseLong(parts[0]);
         long num2 = Long.parseLong(parts[2]);
         String operator = parts[1];
-        long answer = 0;
-        switch (operator) {
-            case "+":
-                answer = num1 + num2;
-                break;
-            case "-":
-                answer = num1 - num2;
-                break;
-            case "*":
-                answer = num1 * num2;
-                break;
-            case "/":
-                answer = num1 / num2;
-                break;
-            default:
-                throw new InvalidOperatorException();
-        }
+        long answer = switch (operator) {
+            case "+" -> num1 + num2;
+            case "-" -> num1 - num2;
+            case "*" -> num1 * num2;
+            case "/" -> num1 / num2;
+            default -> throw new InvalidOperatorException();
+        };
         System.out.println(answer);
     }
 }
