@@ -11,7 +11,7 @@ public class CalculationRequest {
         }
         String operator = parts[1];
         if(operator.length() != 1 || isInvalidOperator(operator)) {
-            throw new BadRequestException();
+            throw new InvalidOperatorException();
         }
         this.num1 = Long.parseLong(parts[0]);
         this.num2 = Long.parseLong(parts[2]);
