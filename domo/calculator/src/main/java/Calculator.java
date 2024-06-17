@@ -1,4 +1,4 @@
-package src.main.java;
+package calculator.src.main.java;
 
 public class Calculator {
     public long calculate(long num1, long num2, String operator) {

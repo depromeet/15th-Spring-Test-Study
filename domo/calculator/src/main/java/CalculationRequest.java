@@ -1,4 +1,4 @@
-package src.main.java;
+package calculator.src.main.java;
 
 public class CalculationRequest {
     private long num1;

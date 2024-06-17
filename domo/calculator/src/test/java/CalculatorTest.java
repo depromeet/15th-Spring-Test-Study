@@ -1,8 +1,8 @@
-package src.test.java;
+package calculator.src.test.java;
 
 import org.junit.jupiter.api.Test;
-import src.main.java.Calculator;
-import src.main.java.InvalidOperatorException;
+import calculator.src.main.java.Calculator;
+import calculator.src.main.java.InvalidOperatorException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

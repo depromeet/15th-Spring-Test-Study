@@ -1,8 +1,8 @@
-package src.test.java;
+package calculator.src.test.java;
 
 import org.junit.jupiter.api.Test;
-import src.main.java.CalculationRequest;
-import src.main.java.CalculationRequestReader;
+import calculator.src.main.java.CalculationRequest;
+import calculator.src.main.java.CalculationRequestReader;
 
 import java.io.ByteArrayInputStream;
 

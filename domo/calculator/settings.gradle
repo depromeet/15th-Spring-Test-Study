@@ -1,2 +1,4 @@
+package calculator
+
 rootProject.name = 'domo'
 

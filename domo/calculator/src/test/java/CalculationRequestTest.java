@@ -1,10 +1,10 @@
-package src.test.java;
+package calculator.src.test.java;
 
 
 import org.junit.jupiter.api.Test;
-import src.main.java.BadRequestException;
-import src.main.java.CalculationRequest;
-import src.main.java.InvalidOperatorException;
+import calculator.src.main.java.BadRequestException;
+import calculator.src.main.java.CalculationRequest;
+import calculator.src.main.java.InvalidOperatorException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

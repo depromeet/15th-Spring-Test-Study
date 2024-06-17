@@ -1,4 +1,4 @@
-package src.main.java;
+package calculator.src.main.java;
 
 public class InvalidOperatorException extends RuntimeException {
     public InvalidOperatorException() {
