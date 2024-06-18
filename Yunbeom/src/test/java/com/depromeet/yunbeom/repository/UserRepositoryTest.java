@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -15,6 +16,7 @@ import com.depromeet.yunbeom.model.UserStatus;
 // DataJpaTest에 이미 ExtendWith가 내장되어 있음
 @DataJpaTest(showSql = true)
 @TestPropertySource("classpath:application-test.yaml")
+@ActiveProfiles("test")
 @Sql("/sql/user-repository-test-data.sql")
 class UserRepositoryTest {
 

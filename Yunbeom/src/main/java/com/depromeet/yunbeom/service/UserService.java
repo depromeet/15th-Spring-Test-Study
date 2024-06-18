@@ -26,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final JavaMailSender mailSender;
 
+    @Transactional(readOnly = true)
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
             .orElseThrow(() -> new ResourceNotFoundException("Users", email));
@@ -33,6 +34,7 @@ public class UserService {
 
     // get은 애초에 데이터가 없으면 에러를 던진다는 의미가 내포되어 있음
     // find는 데이터가 없어도 에러를 던지지 않는다는 의미가 내포되어 있음
+    @Transactional(readOnly = true)
     public UserEntity getById(long id) {
         return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
             .orElseThrow(() -> new ResourceNotFoundException("Users", id));
