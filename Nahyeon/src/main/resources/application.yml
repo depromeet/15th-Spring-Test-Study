@@ -16,7 +16,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   doc:
     swagger-ui:
-      path: /swagger-ui.html
+      path: /swagger-ui/index.html
   mail:
     host: smtp.gmail.com
     port: 587
