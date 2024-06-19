@@ -130,8 +130,8 @@ class UserServiceTest {
 
 		// then
 		UserEntity userEntity = userService.getById(11);
+		// 0 이상의 값이 나와야 한다.
 		assertThat(userEntity.getLastLoginAt()).isGreaterThan(0L);
-		// assertThat(result.getLastLoginAt()).isEqualTo("T.T"); // FIXME
 	}
 
 	@Test
