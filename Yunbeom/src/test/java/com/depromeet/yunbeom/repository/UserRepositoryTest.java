@@ -1,6 +1,7 @@
 package com.depromeet.yunbeom.repository;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ import com.depromeet.yunbeom.model.UserStatus;
 
 // DataJpaTest에 이미 ExtendWith가 내장되어 있음
 @DataJpaTest(showSql = true)
-@TestPropertySource("classpath:application-test.yaml")
+@TestPropertySource("classpath:application-test.yml")
 @ActiveProfiles("test")
 @Sql("/sql/user-repository-test-data.sql")
 class UserRepositoryTest {

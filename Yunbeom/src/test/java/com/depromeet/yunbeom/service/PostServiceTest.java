@@ -1,6 +1,6 @@
 package com.depromeet.yunbeom.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +10,20 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.depromeet.yunbeom.model.dto.PostCreateDto;
 import com.depromeet.yunbeom.model.dto.PostUpdateDto;
 import com.depromeet.yunbeom.repository.PostEntity;
 
 @SpringBootTest
-@TestPropertySource("classpath:application-test.yaml")
 @ActiveProfiles("test")
+@TestPropertySource("classpath:application-test.yml")
 @SqlGroup({
 	@Sql(value = "/sql/post-service-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
 	@Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
-public class PostServiceTest {
+class PostServiceTest {
 
 	@Autowired
 	private PostService postService;
@@ -35,7 +36,7 @@ public class PostServiceTest {
 
 		// then
 		assertThat(result.getContent()).isEqualTo("helloworld");
-		assertThat(result.getWriter().getEmail()).isEqualTo("kok202@naver.com");
+		assertThat(result.getWriter().getEmail()).isEqualTo("uiurihappy@naver.com");
 	}
 
 	@Test

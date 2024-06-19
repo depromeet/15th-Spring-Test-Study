@@ -2,6 +2,7 @@ package com.depromeet.yunbeom.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -24,10 +25,15 @@ import com.depromeet.yunbeom.model.dto.UserUpdateDto;
 import com.depromeet.yunbeom.repository.UserEntity;
 
 @SpringBootTest
-@TestPropertySource("classpath:application-test.yaml")
 @ActiveProfiles("test")
+@TestPropertySource("classpath:application-test.yml")
+/** SQLGroup
+ * SQLGroup은 테스트가 실행되기 전에 SQL 파일을 실행하거나 테스트가 끝난 후에 SQL 파일을 실행할 수 있도록 지원하는 어노테이션입니다.
+ */
 @SqlGroup({
+	// 테스트 실행하기 전에 실행합니다.
 	@Sql(value = "/sql/user-service-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
+	// 테스트 실행한 후에 실행합니다.
 	@Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
 class UserServiceTest {
@@ -40,13 +46,12 @@ class UserServiceTest {
 	@Test
 	void getByEmail은_ACTIVE_상태인_유저를_찾아올_수_있다() {
 		// given
-		String email = "kok202@naver.com";
+		String email = "uiurihappy@naver.com";
 
 		// when
 		UserEntity result = userService.getByEmail(email);
-
 		// then
-		assertThat(result.getNickname()).isEqualTo("kok202");
+		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
 
 	@Test
@@ -68,7 +73,7 @@ class UserServiceTest {
 		UserEntity result = userService.getById(1);
 
 		// then
-		assertThat(result.getNickname()).isEqualTo("kok202");
+		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
 
 	@Test
@@ -85,9 +90,9 @@ class UserServiceTest {
 	void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
 		// given
 		UserCreateDto userCreateDto = UserCreateDto.builder()
-			.email("kok202@kakao.com")
-			.address("Gyeongi")
-			.nickname("kok202-k")
+			.email("ybchar@kakao.com")
+			.address("Seoul")
+			.nickname("ybchar-k")
 			.build();
 		BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
@@ -105,7 +110,7 @@ class UserServiceTest {
 		// given
 		UserUpdateDto userUpdateDto = UserUpdateDto.builder()
 			.address("Incheon")
-			.nickname("kok202-n")
+			.nickname("uiurihappy-n")
 			.build();
 
 		// when
@@ -115,7 +120,7 @@ class UserServiceTest {
 		UserEntity userEntity = userService.getById(1);
 		assertThat(userEntity.getId()).isNotNull();
 		assertThat(userEntity.getAddress()).isEqualTo("Incheon");
-		assertThat(userEntity.getNickname()).isEqualTo("kok202-n");
+		assertThat(userEntity.getNickname()).isEqualTo("uiurihappy-n");
 	}
 
 	@Test
@@ -134,7 +139,7 @@ class UserServiceTest {
 	void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
 		// given
 		// when
-		userService.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab");
+		userService.verifyEmail(2, "1234asda-1321dada-12dascascet");
 
 		// then
 		UserEntity userEntity = userService.getById(2);
