@@ -1,10 +1,10 @@
-package com.example.demo.repository.controller;
+package com.example.demo.controller;
 
-import com.example.demo.repository.model.dto.MyProfileResponse;
-import com.example.demo.repository.model.dto.UserResponse;
-import com.example.demo.repository.model.dto.UserUpdateDto;
-import com.example.demo.repository.repository.UserEntity;
-import com.example.demo.repository.service.UserService;
+import com.example.demo.model.dto.MyProfileResponse;
+import com.example.demo.model.dto.UserResponse;
+import com.example.demo.model.dto.UserUpdateDto;
+import com.example.demo.repository.UserEntity;
+import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<UserResponse> getUserById(@PathVariable long id) {
         return ResponseEntity
             .ok()
-            .body(toResponse(userService.getByIdOrElseThrow(id)));
+            .body(toResponse(userService.getById(id)));
     }
 
     @GetMapping("/{id}/verify")
@@ -68,7 +68,7 @@ public class UserController {
         @RequestBody UserUpdateDto userUpdateDto
     ) {
         UserEntity userEntity = userService.getByEmail(email);
-        userEntity = userService.updateUser(userEntity.getId(), userUpdateDto);
+        userEntity = userService.update(userEntity.getId(), userUpdateDto);
         return ResponseEntity
             .ok()
             .body(toMyProfileResponse(userEntity));

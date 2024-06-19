@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.repository.model.UserStatus;
-import com.example.demo.repository.repository.UserEntity;
-import com.example.demo.repository.repository.UserRepository;
+import com.example.demo.repository.UserEntity;
+import com.example.demo.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
