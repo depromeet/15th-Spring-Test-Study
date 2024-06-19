@@ -32,7 +32,7 @@ class PostServiceTest {
 	void getById는_존재하는_게시물을_내려준다() {
 		// given
 		// when
-		PostEntity result = postService.getById(1);
+		PostEntity result = postService.getById(11);
 
 		// then
 		assertThat(result.getContent()).isEqualTo("helloworld");
@@ -64,10 +64,10 @@ class PostServiceTest {
 			.build();
 
 		// when
-		postService.update(1, postUpdateDto);
+		postService.update(11, postUpdateDto);
 
 		// then
-		PostEntity postEntity= postService.getById(1);
+		PostEntity postEntity= postService.getById(11);
 		assertThat(postEntity.getContent()).isEqualTo("hello world :)");
 		assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
 	}

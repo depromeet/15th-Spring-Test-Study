@@ -57,7 +57,7 @@ class UserServiceTest {
 	@Test
 	void getByEmail은_PENDING_상태인_유저는_찾아올_수_없다() {
 		// given
-		String email = "kok303@naver.com";
+		String email = "ybchar@naver.com";
 
 		// when
 		// then
@@ -70,7 +70,7 @@ class UserServiceTest {
 	void getById는_ACTIVE_상태인_유저를_찾아올_수_있다() {
 		// given
 		// when
-		UserEntity result = userService.getById(1);
+		UserEntity result = userService.getById(11);
 
 		// then
 		assertThat(result.getNickname()).isEqualTo("uiurihappy");
@@ -82,7 +82,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			UserEntity result = userService.getById(2);
+			UserEntity result = userService.getById(12);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 
@@ -90,7 +90,7 @@ class UserServiceTest {
 	void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
 		// given
 		UserCreateDto userCreateDto = UserCreateDto.builder()
-			.email("ybchar@kakao.com")
+			.email("ybchar@naver.com")
 			.address("Seoul")
 			.nickname("ybchar-k")
 			.build();
@@ -102,7 +102,6 @@ class UserServiceTest {
 		// then
 		assertThat(result.getId()).isNotNull();
 		assertThat(result.getStatus()).isEqualTo(UserStatus.PENDING);
-		// assertThat(result.getCertificationCode()).isEqualTo("T.T"); // FIXME
 	}
 
 	@Test
@@ -114,10 +113,10 @@ class UserServiceTest {
 			.build();
 
 		// when
-		userService.update(1, userUpdateDto);
+		userService.update(11, userUpdateDto);
 
 		// then
-		UserEntity userEntity = userService.getById(1);
+		UserEntity userEntity = userService.getById(11);
 		assertThat(userEntity.getId()).isNotNull();
 		assertThat(userEntity.getAddress()).isEqualTo("Incheon");
 		assertThat(userEntity.getNickname()).isEqualTo("uiurihappy-n");
@@ -127,10 +126,10 @@ class UserServiceTest {
 	void user를_로그인_시키면_마지막_로그인_시간이_변경된다() {
 		// given
 		// when
-		userService.login(1);
+		userService.login(11);
 
 		// then
-		UserEntity userEntity = userService.getById(1);
+		UserEntity userEntity = userService.getById(11);
 		assertThat(userEntity.getLastLoginAt()).isGreaterThan(0L);
 		// assertThat(result.getLastLoginAt()).isEqualTo("T.T"); // FIXME
 	}
@@ -139,10 +138,10 @@ class UserServiceTest {
 	void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
 		// given
 		// when
-		userService.verifyEmail(2, "1234asda-1321dada-12dascascet");
+		userService.verifyEmail(12, "1234asda-1321dada-12dascascet");
 
 		// then
-		UserEntity userEntity = userService.getById(2);
+		UserEntity userEntity = userService.getById(12);
 		assertThat(userEntity.getStatus()).isEqualTo(UserStatus.ACTIVE);
 	}
 
@@ -152,7 +151,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			userService.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac");
+			userService.verifyEmail(12, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac");
 		}).isInstanceOf(CertificationCodeNotMatchedException.class);
 	}
 
