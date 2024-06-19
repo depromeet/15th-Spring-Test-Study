@@ -7,45 +7,23 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.example.demo.model.UserStatus;
 
 @DataJpaTest(showSql = true)
+@Sql("/sql/user-repository-test-data.sql")
 public class UserRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@Test
-	void UserRepository_가_제대로_연결되었다(){
-		// given
-		UserEntity userEntity = new UserEntity();
-		userEntity.setEmail("study7823@gmail.com");
-		userEntity.setAddress("Seoul");
-		userEntity.setNickname("study7823");
-		userEntity.setStatus(UserStatus.ACTIVE);
-		userEntity.setCertificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
-
-		// when
-		UserEntity result = userRepository.save(userEntity);
-
-		// then
-		assertThat(result.getId()).isNotNull();
-	}
-
-	@Test
 	void findByIdAndStatus_로_유저_데이터를_찾아올_수_있다(){
 		// given
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(1L);
-		userEntity.setEmail("study7823@gmail.com");
-		userEntity.setAddress("Seoul");
-		userEntity.setNickname("study7823");
-		userEntity.setStatus(UserStatus.ACTIVE);
-		userEntity.setCertificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
 		// when
-		userRepository.save(userEntity);
+
 		Optional<UserEntity> result = userRepository.findByIdAndStatus(1, UserStatus.ACTIVE);
 
 		// then
@@ -56,16 +34,9 @@ public class UserRepositoryTest {
 	@Test
 	void findByIdAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다(){
 		// given
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(1L);
-		userEntity.setEmail("study7823@gmail.com");
-		userEntity.setAddress("Seoul");
-		userEntity.setNickname("study7823");
-		userEntity.setStatus(UserStatus.ACTIVE);
-		userEntity.setCertificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
 		// when
-		userRepository.save(userEntity);
+
 		Optional<UserEntity> result = userRepository.findByIdAndStatus(1, UserStatus.PENDING);
 
 		// then
@@ -77,17 +48,10 @@ public class UserRepositoryTest {
 	@Test
 	void findByEmailAndStatus_로_유저_데이터를_찾아올_수_있다(){
 		// given
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(1L);
-		userEntity.setEmail("study7823@gmail.com");
-		userEntity.setAddress("Seoul");
-		userEntity.setNickname("study7823");
-		userEntity.setStatus(UserStatus.ACTIVE);
-		userEntity.setCertificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
 		// when
-		userRepository.save(userEntity);
-		Optional<UserEntity> result = userRepository.findByEmailAndStatus("study7823@gmail.com", UserStatus.ACTIVE);
+
+		Optional<UserEntity> result = userRepository.findByEmailAndStatus("kok202@naver.com", UserStatus.ACTIVE);
 
 		// then
 		assertThat(result.isPresent()).isTrue();
@@ -97,17 +61,10 @@ public class UserRepositoryTest {
 	@Test
 	void findByEmailAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다(){
 		// given
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(1L);
-		userEntity.setEmail("study7823@gmail.com");
-		userEntity.setAddress("Seoul");
-		userEntity.setNickname("study7823");
-		userEntity.setStatus(UserStatus.ACTIVE);
-		userEntity.setCertificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
 		// when
-		userRepository.save(userEntity);
-		Optional<UserEntity> result = userRepository.findByEmailAndStatus("study7823@gmail.com", UserStatus.PENDING);
+
+		Optional<UserEntity> result = userRepository.findByEmailAndStatus("kok202@naver.com", UserStatus.PENDING);
 
 		// then
 		assertThat(result.isEmpty()).isTrue();
