@@ -1,7 +1,6 @@
 package com.depromeet.nahyeon.service;
 
 import java.time.Clock;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -27,11 +26,7 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final JavaMailSender mailSender;
 
-	public Optional<UserEntity> getById(long id) {
-		return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE);
-	}
-
-	public UserEntity getByIdOrElseThrow(long id) {
+	public UserEntity getById(long id) {
 		return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
 			.orElseThrow(() -> new ResourceNotFoundException("Users", id));
 	}
@@ -42,7 +37,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserEntity createUser(UserCreateDto userCreateDto) {
+	public UserEntity create(UserCreateDto userCreateDto) {
 		UserEntity userEntity = new UserEntity();
 		userEntity.setEmail(userCreateDto.getEmail());
 		userEntity.setNickname(userCreateDto.getNickname());
@@ -57,8 +52,8 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserEntity updateUser(long id, UserUpdateDto userUpdateDto) {
-		UserEntity userEntity = getByIdOrElseThrow(id);
+	public UserEntity update(long id, UserUpdateDto userUpdateDto) {
+		UserEntity userEntity = getById(id);
 		userEntity.setNickname(userUpdateDto.getNickname());
 		userEntity.setAddress(userEntity.getAddress());
 		userEntity = userRepository.save(userEntity);
