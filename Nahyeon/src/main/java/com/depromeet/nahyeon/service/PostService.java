@@ -26,6 +26,7 @@ public class PostService {
 		return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
 	}
 
+	@Transactional
 	public PostEntity create(PostCreateDto postCreateDto) {
 		UserEntity userEntity = userService.getById(postCreateDto.getWriterId());
 		PostEntity postEntity = new PostEntity();
@@ -35,6 +36,7 @@ public class PostService {
 		return postRepository.save(postEntity);
 	}
 
+	@Transactional
 	public PostEntity update(long id, PostUpdateDto postUpdateDto) {
 		PostEntity postEntity = getById(id);
 		postEntity.setContent(postUpdateDto.getContent());
