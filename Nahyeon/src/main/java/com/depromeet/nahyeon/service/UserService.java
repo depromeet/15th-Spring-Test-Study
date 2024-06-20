@@ -55,7 +55,7 @@ public class UserService {
 	public UserEntity update(long id, UserUpdateDto userUpdateDto) {
 		UserEntity userEntity = getById(id);
 		userEntity.setNickname(userUpdateDto.getNickname());
-		userEntity.setAddress(userEntity.getAddress());
+		userEntity.setAddress(userUpdateDto.getAddress());
 		userEntity = userRepository.save(userEntity);
 		return userEntity;
 	}
