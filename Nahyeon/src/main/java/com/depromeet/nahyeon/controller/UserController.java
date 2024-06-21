@@ -78,7 +78,7 @@ public class UserController {
 		userResponse.setId(userEntity.getId());
 		userResponse.setEmail(userEntity.getEmail());
 		userResponse.setNickname(userEntity.getNickname());
-		userEntity.setStatus(userEntity.getStatus());
+		userResponse.setStatus(userEntity.getStatus());
 		userResponse.setLastLoginAt(userEntity.getLastLoginAt());
 		return userResponse;
 	}
