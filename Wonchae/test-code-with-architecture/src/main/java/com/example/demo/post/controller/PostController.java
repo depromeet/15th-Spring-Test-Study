@@ -28,23 +28,13 @@ public class PostController {
     public ResponseEntity<PostResponse> getPostById(@PathVariable long id) {
         return ResponseEntity
             .ok()
-            .body(toResponse(postService.getById(id)));
+            .body(PostResponse.from(postService.getById(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
         return ResponseEntity
             .ok()
-            .body(toResponse(postService.update(id, postUpdate)));
-    }
-
-    public PostResponse toResponse(PostEntity postEntity) {
-        PostResponse PostResponse = new PostResponse();
-        PostResponse.setId(postEntity.getId());
-        PostResponse.setContent(postEntity.getContent());
-        PostResponse.setCreatedAt(postEntity.getCreatedAt());
-        PostResponse.setModifiedAt(postEntity.getModifiedAt());
-        PostResponse.setWriter(userController.toResponse(postEntity.getWriter()));
-        return PostResponse;
+            .body(PostResponse.from(postService.update(id, postUpdate)));
     }
 }
