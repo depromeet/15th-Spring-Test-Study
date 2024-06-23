@@ -2,7 +2,6 @@ package com.depromeet.yunbeom.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -17,12 +16,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
 
-import com.depromeet.yunbeom.exception.CertificationCodeNotMatchedException;
-import com.depromeet.yunbeom.exception.ResourceNotFoundException;
-import com.depromeet.yunbeom.model.UserStatus;
-import com.depromeet.yunbeom.model.dto.UserCreateDto;
-import com.depromeet.yunbeom.model.dto.UserUpdateDto;
-import com.depromeet.yunbeom.repository.UserEntity;
+import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
+import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
+import com.depromeet.yunbeom.user.domain.UserStatus;
+import com.depromeet.yunbeom.user.domain.UserCreate;
+import com.depromeet.yunbeom.user.domain.UserUpdate;
+import com.depromeet.yunbeom.user.infrastructure.UserEntity;
+import com.depromeet.yunbeom.user.service.UserService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -89,7 +89,7 @@ class UserServiceTest {
 	@Test
 	void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
 		// given
-		UserCreateDto userCreateDto = UserCreateDto.builder()
+		UserCreate userCreate = UserCreate.builder()
 			.email("ybchar@naver.com")
 			.address("Seoul")
 			.nickname("ybchar-k")
@@ -97,7 +97,7 @@ class UserServiceTest {
 		BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
 		// when
-		UserEntity result = userService.create(userCreateDto);
+		UserEntity result = userService.create(userCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -107,13 +107,13 @@ class UserServiceTest {
 	@Test
 	void userUpdateDto_를_이용하여_유저를_수정할_수_있다() {
 		// given
-		UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+		UserUpdate userUpdate = UserUpdate.builder()
 			.address("Incheon")
 			.nickname("uiurihappy-n")
 			.build();
 
 		// when
-		userService.update(11, userUpdateDto);
+		userService.update(11, userUpdate);
 
 		// then
 		UserEntity userEntity = userService.getById(11);

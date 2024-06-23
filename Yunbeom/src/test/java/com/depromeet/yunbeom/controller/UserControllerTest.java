@@ -1,7 +1,6 @@
 package com.depromeet.yunbeom.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -16,10 +15,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.yunbeom.model.UserStatus;
-import com.depromeet.yunbeom.model.dto.UserUpdateDto;
-import com.depromeet.yunbeom.repository.UserEntity;
-import com.depromeet.yunbeom.repository.UserRepository;
+import com.depromeet.yunbeom.user.domain.UserStatus;
+import com.depromeet.yunbeom.user.domain.UserUpdate;
+import com.depromeet.yunbeom.user.infrastructure.UserEntity;
+import com.depromeet.yunbeom.user.infrastructure.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -109,7 +108,7 @@ class UserControllerTest {
 	@Test
 	void 사용자는_내_정보를_수정할_수_있다() throws Exception {
 		// given
-		UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+		UserUpdate userUpdate = UserUpdate.builder()
 			.nickname("ybchar-n")
 			.address("Pangyo")
 			.build();
@@ -120,7 +119,7 @@ class UserControllerTest {
 				put("/api/users/me")
 					.header("EMAIL", "uiurihappy@naver.com")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(userUpdateDto)))
+					.content(objectMapper.writeValueAsString(userUpdate)))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id").value(11))
 			.andExpect(jsonPath("$.email").value("uiurihappy@naver.com"))

@@ -1,6 +1,5 @@
 package com.depromeet.yunbeom.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -15,7 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.yunbeom.model.dto.PostUpdateDto;
+import com.depromeet.yunbeom.post.domain.PostUpdate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -62,7 +61,7 @@ class PostControllerTest {
 	@Test
 	void 사용자는_게시물을_수정할_수_있다() throws Exception {
 		// given
-		PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+		PostUpdate postUpdate = PostUpdate.builder()
 			.content("foobar")
 			.build();
 
@@ -71,7 +70,7 @@ class PostControllerTest {
 		mockMvc.perform(
 				put("/api/posts/11")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(postUpdateDto)))
+					.content(objectMapper.writeValueAsString(postUpdate)))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id").isNumber())
 			.andExpect(jsonPath("$.content").value("foobar"))

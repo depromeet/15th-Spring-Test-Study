@@ -10,11 +10,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.depromeet.yunbeom.model.dto.PostCreateDto;
-import com.depromeet.yunbeom.model.dto.PostUpdateDto;
-import com.depromeet.yunbeom.repository.PostEntity;
+import com.depromeet.yunbeom.post.domain.PostCreate;
+import com.depromeet.yunbeom.post.domain.PostUpdate;
+import com.depromeet.yunbeom.post.infrastructure.PostEntity;
+import com.depromeet.yunbeom.post.service.PostService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -42,13 +42,13 @@ class PostServiceTest {
 	@Test
 	void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
 		// given
-		PostCreateDto postCreateDto = PostCreateDto.builder()
+		PostCreate postCreate = PostCreate.builder()
 			.writerId(1)
 			.content("foobar")
 			.build();
 
 		// when
-		PostEntity result = postService.create(postCreateDto);
+		PostEntity result = postService.create(postCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -59,12 +59,12 @@ class PostServiceTest {
 	@Test
 	void postUpdateDto_를_이용하여_게시물을_수정할_수_있다() {
 		// given
-		PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+		PostUpdate postUpdate = PostUpdate.builder()
 			.content("hello world :)")
 			.build();
 
 		// when
-		postService.update(11, postUpdateDto);
+		postService.update(11, postUpdate);
 
 		// then
 		PostEntity postEntity= postService.getById(11);

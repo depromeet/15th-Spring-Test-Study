@@ -1,6 +1,5 @@
 package com.depromeet.yunbeom.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -20,9 +19,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.yunbeom.model.dto.UserCreateDto;
-import com.depromeet.yunbeom.model.dto.UserUpdateDto;
-import com.depromeet.yunbeom.repository.UserRepository;
+import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -45,7 +42,7 @@ class UserCreateControllerTest {
 	@Test
 	void 사용자는_회원_가입을_할_수있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
 		// given
-		UserCreateDto userCreateDto = UserCreateDto.builder()
+		UserCreate userCreate = UserCreate.builder()
 			.email("ybchar@kakao.com")
 			.nickname("ybchar")
 			.address("Pangyo")
@@ -57,7 +54,7 @@ class UserCreateControllerTest {
 		mockMvc.perform(
 				post("/api/users")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(userCreateDto)))
+					.content(objectMapper.writeValueAsString(userCreate)))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.id").isNumber())
 			.andExpect(jsonPath("$.email").value("ybchar@kakao.com"))
