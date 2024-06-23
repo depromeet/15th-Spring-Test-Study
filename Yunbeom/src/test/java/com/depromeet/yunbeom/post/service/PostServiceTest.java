@@ -1,4 +1,4 @@
-package com.depromeet.yunbeom.service;
+package com.depromeet.yunbeom.post.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
@@ -14,7 +14,6 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import com.depromeet.yunbeom.post.domain.PostCreate;
 import com.depromeet.yunbeom.post.domain.PostUpdate;
 import com.depromeet.yunbeom.post.infrastructure.PostEntity;
-import com.depromeet.yunbeom.post.service.PostService;
 
 @SpringBootTest
 @ActiveProfiles("test")

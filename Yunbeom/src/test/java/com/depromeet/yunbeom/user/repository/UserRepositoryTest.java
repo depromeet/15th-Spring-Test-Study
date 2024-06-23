@@ -1,4 +1,4 @@
-package com.depromeet.yunbeom.repository;
+package com.depromeet.yunbeom.user.repository;
 
 import static org.assertj.core.api.Assertions.*;
 

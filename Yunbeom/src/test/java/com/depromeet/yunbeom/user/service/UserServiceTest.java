@@ -1,4 +1,4 @@
-package com.depromeet.yunbeom.service;
+package com.depromeet.yunbeom.user.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -22,7 +22,6 @@ import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.service.UserService;
 
 @SpringBootTest
 @ActiveProfiles("test")
