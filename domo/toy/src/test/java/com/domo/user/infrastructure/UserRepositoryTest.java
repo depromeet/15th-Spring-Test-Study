@@ -1,7 +1,8 @@
-package com.domo.repository;
+package com.domo.user.infrastructure;
 
 import com.domo.user.domain.UserStatus;
 import com.domo.user.infstructure.UserEntity;
+import com.domo.user.infstructure.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
