@@ -2,6 +2,7 @@ package com.domo.repository;
 
 import com.domo.user.domain.UserStatus;
 import com.domo.user.infstructure.UserEntity;
+import com.domo.user.service.port.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

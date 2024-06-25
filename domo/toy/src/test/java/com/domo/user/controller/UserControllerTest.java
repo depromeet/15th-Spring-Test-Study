@@ -3,7 +3,7 @@ package com.domo.user.controller;
 import com.domo.user.domain.UserStatus;
 import com.domo.user.domain.UserUpdate;
 import com.domo.user.infstructure.UserEntity;
-import com.domo.user.infstructure.UserRepository;
+import com.domo.user.infstructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userRepository;
 
     @Autowired
     private ObjectMapper objectMapper;

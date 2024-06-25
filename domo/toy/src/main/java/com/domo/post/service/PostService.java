@@ -6,7 +6,7 @@ import com.domo.common.domain.exception.ResourceNotFoundException;
 import com.domo.post.domain.PostCreate;
 import com.domo.post.domain.PostUpdate;
 import com.domo.post.infstructure.PostEntity;
-import com.domo.post.infstructure.PostRepository;
+import com.domo.post.service.port.PostRepository;
 import com.domo.user.infstructure.UserEntity;
 import com.domo.user.service.UserService;
 import org.springframework.stereotype.Service;
