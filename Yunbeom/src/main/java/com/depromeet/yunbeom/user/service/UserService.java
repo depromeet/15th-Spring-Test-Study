@@ -14,7 +14,8 @@ import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.infrastructure.UserRepository;
+import com.depromeet.yunbeom.user.infrastructure.UserJpaRepository;
+import com.depromeet.yunbeom.user.service.port.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

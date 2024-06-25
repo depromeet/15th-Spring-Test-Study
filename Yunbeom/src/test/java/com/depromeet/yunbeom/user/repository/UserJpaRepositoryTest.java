@@ -13,17 +13,17 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.infrastructure.UserRepository;
+import com.depromeet.yunbeom.user.infrastructure.UserJpaRepository;
 
 // DataJpaTest에 이미 ExtendWith가 내장되어 있음
 @DataJpaTest(showSql = true)
 @TestPropertySource("classpath:application-test.yml")
 @ActiveProfiles("test")
 @Sql("/sql/user-repository-test-data.sql")
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserJpaRepository userJpaRepository;
 
 	// private UserEntity savedUserEntity;
 
@@ -47,7 +47,7 @@ class UserRepositoryTest {
 	@Test
 	void findByIdAndStatus_가_제대로_동작한다() {
 		// when
-		Optional<UserEntity> result = userRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
+		Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
 
 		// then
 		// assertThat(result).isNotNull();
@@ -57,7 +57,7 @@ class UserRepositoryTest {
 	@Test
 	void findByIdAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다() {
 		// when
-		Optional<UserEntity> result = userRepository.findByIdAndStatus(1L,  UserStatus.PENDING);
+		Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1L,  UserStatus.PENDING);
 
 		// then
 		// assertThat(result.isPresent()).isFalse();
@@ -67,7 +67,7 @@ class UserRepositoryTest {
 	@Test
 	void findByIdAndEmail_는_데이터가_없으면_Optional_empty_를_내려준다() {
 		// when
-		Optional<UserEntity> result = userRepository.findByEmailAndStatus("uiurihappy@naver.com",  UserStatus.ACTIVE);
+		Optional<UserEntity> result = userJpaRepository.findByEmailAndStatus("uiurihappy@naver.com",  UserStatus.ACTIVE);
 
 		// then
 		assertThat(result.isEmpty()).isFalse();
