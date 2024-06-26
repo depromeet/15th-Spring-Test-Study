@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.user.infrastructure;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
