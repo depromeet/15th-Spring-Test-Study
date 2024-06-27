@@ -9,9 +9,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
-import com.depromeet.nahyeon.model.dto.PostCreateDto;
-import com.depromeet.nahyeon.model.dto.PostUpdateDto;
-import com.depromeet.nahyeon.repository.PostEntity;
+import com.depromeet.nahyeon.post.domain.PostCreate;
+import com.depromeet.nahyeon.post.domain.PostUpdate;
+import com.depromeet.nahyeon.post.infrastructure.PostEntity;
+import com.depromeet.nahyeon.post.service.PostService;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")
@@ -39,7 +40,7 @@ class PostServiceTest {
 	@Test
 	void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
 		// given
-		PostCreateDto postCreateDto = PostCreateDto.builder()
+		PostCreate postCreateDto = PostCreate.builder()
 			.writerId(1L)
 			.content("test content")
 			.build();
@@ -56,7 +57,7 @@ class PostServiceTest {
 	@Test
 	void postUpdateDto_를_이용하여_게시물을_생성할_수_있다() {
 		// given
-		PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+		PostUpdate postUpdateDto = PostUpdate.builder()
 			.content("updated content :)")
 			.build();
 

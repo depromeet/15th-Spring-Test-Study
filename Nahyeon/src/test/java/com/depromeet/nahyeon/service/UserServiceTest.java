@@ -14,12 +14,13 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
-import com.depromeet.nahyeon.exception.CertificationCodeNotMatchedException;
-import com.depromeet.nahyeon.exception.ResourceNotFoundException;
-import com.depromeet.nahyeon.model.UserStatus;
-import com.depromeet.nahyeon.model.dto.UserCreateDto;
-import com.depromeet.nahyeon.model.dto.UserUpdateDto;
-import com.depromeet.nahyeon.repository.UserEntity;
+import com.depromeet.nahyeon.common.domain.exception.CertificationCodeNotMatchedException;
+import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
+import com.depromeet.nahyeon.user.domain.UserStatus;
+import com.depromeet.nahyeon.user.domain.UserCreate;
+import com.depromeet.nahyeon.user.domain.UserUpdate;
+import com.depromeet.nahyeon.user.infrastructure.UserEntity;
+import com.depromeet.nahyeon.user.service.UserService;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")
@@ -72,7 +73,7 @@ class UserServiceTest {
 	@Test
 	void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
 		// given
-		UserCreateDto userCreateDto = UserCreateDto.builder()
+		UserCreate userCreateDto = UserCreate.builder()
 			.email("nahyeonee99@kakao.com")
 			.address("Incheon")
 			.nickname("nahyeon-k")
@@ -91,7 +92,7 @@ class UserServiceTest {
 	@Test
 	void UserUpdateDto_를_이용하여_유저를_수정할_수_있다() {
 		// given
-		UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+		UserUpdate userUpdateDto = UserUpdate.builder()
 			.address("Incheon")
 			.nickname("nahyeon-kim")
 			.build();

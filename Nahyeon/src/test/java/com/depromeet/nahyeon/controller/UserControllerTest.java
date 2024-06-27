@@ -15,10 +15,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.nahyeon.model.UserStatus;
-import com.depromeet.nahyeon.model.dto.UserUpdateDto;
-import com.depromeet.nahyeon.repository.UserEntity;
-import com.depromeet.nahyeon.repository.UserRepository;
+import com.depromeet.nahyeon.user.domain.UserStatus;
+import com.depromeet.nahyeon.user.domain.UserUpdate;
+import com.depromeet.nahyeon.user.infrastructure.UserEntity;
+import com.depromeet.nahyeon.user.infrastructure.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -106,7 +106,7 @@ class UserControllerTest {
 	@Test
 	void 사용자는_내_정보를_수정할_수_있다() throws Exception {
 		// given
-		UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+		UserUpdate userUpdateDto = UserUpdate.builder()
 			.nickname("nahyeon-n")
 			.address("Pangyo")
 			.build();

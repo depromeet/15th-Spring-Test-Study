@@ -12,7 +12,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.depromeet.nahyeon.model.UserStatus;
+import com.depromeet.nahyeon.user.domain.UserStatus;
+import com.depromeet.nahyeon.user.infrastructure.UserEntity;
+import com.depromeet.nahyeon.user.infrastructure.UserRepository;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest(showSql = true)

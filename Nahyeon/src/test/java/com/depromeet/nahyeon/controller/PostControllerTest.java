@@ -14,7 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.nahyeon.model.dto.PostUpdateDto;
+import com.depromeet.nahyeon.post.domain.PostUpdate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -58,7 +58,7 @@ class PostControllerTest {
 	@Test
 	void 사용자는_게시물을_수정할_수_있다() throws Exception {
 		// given
-		PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+		PostUpdate postUpdateDto = PostUpdate.builder()
 			.content("updated content :)")
 			.build();
 

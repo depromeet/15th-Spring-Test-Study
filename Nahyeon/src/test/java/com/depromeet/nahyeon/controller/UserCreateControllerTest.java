@@ -19,7 +19,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.depromeet.nahyeon.model.dto.UserCreateDto;
+import com.depromeet.nahyeon.user.domain.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -43,7 +43,7 @@ public class UserCreateControllerTest {
 	@Test
 	void 사용자는_회원_가입을_할_수_있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
 		// given
-		UserCreateDto userCreateDto = UserCreateDto.builder()
+		UserCreate userCreateDto = UserCreate.builder()
 			.email("nahyeon@kakao.com")
 			.nickname("hyeon")
 			.address("Pangyo")
