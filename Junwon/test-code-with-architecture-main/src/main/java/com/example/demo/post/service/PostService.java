@@ -4,7 +4,9 @@ import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.infrastructure.PostEntity;
-import com.example.demo.post.infrastructure.PostRepository;
+import com.example.demo.post.infrastructure.PostJpaRepository;
+import com.example.demo.post.infrastructure.PostRepositoryImpl;
+import com.example.demo.post.service.port.PostRepository;
 import com.example.demo.user.infrastructure.UserEntity;
 import com.example.demo.user.service.UserService;
 
