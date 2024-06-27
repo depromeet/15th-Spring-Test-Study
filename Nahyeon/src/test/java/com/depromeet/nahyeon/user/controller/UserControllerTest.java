@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.domain.UserUpdate;
 import com.depromeet.nahyeon.user.infrastructure.UserEntity;
-import com.depromeet.nahyeon.user.infrastructure.UserRepository;
+import com.depromeet.nahyeon.user.infrastructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -35,7 +35,7 @@ class UserControllerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserJpaRepository userRepository;
 
 	@Autowired
 	private ObjectMapper objectMapper;

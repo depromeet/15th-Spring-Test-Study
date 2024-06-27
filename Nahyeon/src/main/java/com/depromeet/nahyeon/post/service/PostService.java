@@ -9,7 +9,7 @@ import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
 import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
 import com.depromeet.nahyeon.post.infrastructure.PostEntity;
-import com.depromeet.nahyeon.post.infrastructure.PostRepository;
+import com.depromeet.nahyeon.post.service.port.PostRepository;
 import com.depromeet.nahyeon.user.infrastructure.UserEntity;
 import com.depromeet.nahyeon.user.service.UserService;
 

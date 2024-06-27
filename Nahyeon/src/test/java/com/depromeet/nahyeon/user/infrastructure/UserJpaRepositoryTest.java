@@ -13,17 +13,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.depromeet.nahyeon.user.domain.UserStatus;
-import com.depromeet.nahyeon.user.infrastructure.UserEntity;
-import com.depromeet.nahyeon.user.infrastructure.UserRepository;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest(showSql = true)
 @TestPropertySource("classpath:test-application.yml")
 @Sql("/sql/user-repository-test-data.sql")
-public class UserRepositoryTest {
+public class UserJpaRepositoryTest {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserJpaRepository userRepository;
 
 	@Test
 	void findByIdAndStatus_로_유저_데이터를_찾아올_수_있다() {

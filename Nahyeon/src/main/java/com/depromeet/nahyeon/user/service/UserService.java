@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.depromeet.nahyeon.common.domain.exception.CertificationCodeNotMatchedException;
 import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
-import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.domain.UserCreate;
+import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.domain.UserUpdate;
 import com.depromeet.nahyeon.user.infrastructure.UserEntity;
-import com.depromeet.nahyeon.user.infrastructure.UserRepository;
+import com.depromeet.nahyeon.user.service.port.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
