@@ -48,6 +48,7 @@ public class User {
 			.address(userUpdate.getAddress())
 			.status(status)
 			.certificationCode(certificationCode)
+			.lastLoginAt(lastLoginAt)
 			.build();
 	}
 
