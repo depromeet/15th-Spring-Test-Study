@@ -1,5 +1,6 @@
 package com.domo.repository;
 
+import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;
 import com.domo.user.infstructure.UserEntity;
 import com.domo.user.service.port.UserRepository;
@@ -23,7 +24,7 @@ class UserRepositoryTest {
     void findByIdAndStatus로_유저_데이터를_찾아올_수_있다() {
         // given
         // when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1, UserStatus.ACTIVE);
+        Optional<User> result = userRepository.findByIdAndStatus(1, UserStatus.ACTIVE);
 
         // then
         assertThat(result.isPresent()).isTrue();
@@ -33,7 +34,7 @@ class UserRepositoryTest {
     void findByIdAndStatus는_데이터가_없으면_Optional_Empty를_내려준다() {
         // given
         // when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1, UserStatus.PENDING);
+        Optional<User> result = userRepository.findByIdAndStatus(1, UserStatus.PENDING);
 
         // then
         assertThat(result.isPresent()).isFalse();
@@ -44,7 +45,7 @@ class UserRepositoryTest {
     void findByEmailAndStatus로_유저_데이터를_찾아올_수_있다() {
         // given
         // when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("me@dev-domo.com", UserStatus.ACTIVE);
+        Optional<User> result = userRepository.findByEmailAndStatus("me@dev-domo.com", UserStatus.ACTIVE);
 
         // then
         assertThat(result.isPresent()).isTrue();
@@ -54,7 +55,7 @@ class UserRepositoryTest {
     void findByEmailAndStatus는_데이터가_없으면_Optional_Empty를_내려준다() {
         // given
         // when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("me@dev-domo.com", UserStatus.ACTIVE);
+        Optional<User> result = userRepository.findByEmailAndStatus("me@dev-domo.com", UserStatus.ACTIVE);
 
         // then
         assertThat(result.isPresent()).isTrue();

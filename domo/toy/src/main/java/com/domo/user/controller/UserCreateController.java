@@ -1,5 +1,6 @@
 package com.domo.user.controller;
 
+import com.domo.user.domain.User;
 import com.domo.user.domain.UserCreate;
 import com.domo.user.controller.response.UserResponse;
 import com.domo.user.infstructure.UserEntity;
@@ -19,16 +20,14 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserCreateController {
-
-    private final UserController userController;
     private final UserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
-        UserEntity userEntity = userService.create(userCreate);
+        User user = userService.create(userCreate);
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(userController.toResponse(userEntity));
+            .body(UserResponse.from(user));
     }
 
 }

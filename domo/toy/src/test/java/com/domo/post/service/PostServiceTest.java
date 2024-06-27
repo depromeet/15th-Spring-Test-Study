@@ -1,8 +1,8 @@
 package com.domo.post.service;
 
+import com.domo.post.domain.Post;
 import com.domo.post.domain.PostCreate;
 import com.domo.post.domain.PostUpdate;
-import com.domo.post.infstructure.PostEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +26,7 @@ class PostServiceTest {
     void getById는_존재하는_게시물을_조회한다() {
         // given
         // when
-        PostEntity result = postService.getPostById(16);
+        Post result = postService.getPostById(16);
 
         // then
         assertThat(result.getContent()).isEqualTo("Hello, world!");
@@ -42,7 +42,7 @@ class PostServiceTest {
                 .build();
 
         // when
-        PostEntity result = postService.create(postCreate);
+        Post result = postService.create(postCreate);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -61,7 +61,7 @@ class PostServiceTest {
         postService.update(11, postUpdate);
 
         // then
-        PostEntity result = postService.getPostById(11);
+        Post result = postService.getPostById(11);
         assertThat(result.getId()).isNotNull();
         assertThat(result.getContent()).isEqualTo("Hello, Domo!");
         assertThat(result.getModifiedAt()).isGreaterThan(0);
