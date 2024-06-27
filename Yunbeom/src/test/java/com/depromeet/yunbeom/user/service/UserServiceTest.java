@@ -16,6 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
 
+import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
 import com.depromeet.yunbeom.user.domain.UserStatus;
@@ -48,7 +49,7 @@ class UserServiceTest {
 		String email = "uiurihappy@naver.com";
 
 		// when
-		UserEntity result = userService.getByEmail(email);
+		User result = userService.getByEmail(email);
 		// then
 		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
@@ -61,7 +62,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			UserEntity result = userService.getByEmail(email);
+			User result = userService.getByEmail(email);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 
@@ -69,7 +70,7 @@ class UserServiceTest {
 	void getById는_ACTIVE_상태인_유저를_찾아올_수_있다() {
 		// given
 		// when
-		UserEntity result = userService.getById(11);
+		User result = userService.getById(11);
 
 		// then
 		assertThat(result.getNickname()).isEqualTo("uiurihappy");
@@ -81,7 +82,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			UserEntity result = userService.getById(12);
+			User result = userService.getById(12);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 
@@ -96,7 +97,7 @@ class UserServiceTest {
 		BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
 		// when
-		UserEntity result = userService.create(userCreate);
+		User result = userService.create(userCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -115,7 +116,7 @@ class UserServiceTest {
 		userService.update(11, userUpdate);
 
 		// then
-		UserEntity userEntity = userService.getById(11);
+		User userEntity = userService.getById(11);
 		assertThat(userEntity.getId()).isNotNull();
 		assertThat(userEntity.getAddress()).isEqualTo("Incheon");
 		assertThat(userEntity.getNickname()).isEqualTo("uiurihappy-n");
@@ -128,7 +129,7 @@ class UserServiceTest {
 		userService.login(11);
 
 		// then
-		UserEntity userEntity = userService.getById(11);
+		User userEntity = userService.getById(11);
 		// 0 이상의 값이 나와야 한다.
 		assertThat(userEntity.getLastLoginAt()).isGreaterThan(0L);
 	}
@@ -140,7 +141,7 @@ class UserServiceTest {
 		userService.verifyEmail(12, "1234asda-1321dada-12dascascet");
 
 		// then
-		UserEntity userEntity = userService.getById(12);
+		User userEntity = userService.getById(12);
 		assertThat(userEntity.getStatus()).isEqualTo(UserStatus.ACTIVE);
 	}
 
