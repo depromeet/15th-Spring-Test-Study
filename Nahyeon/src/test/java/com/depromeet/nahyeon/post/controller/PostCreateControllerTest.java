@@ -36,7 +36,7 @@ class PostCreateControllerTest {
 	@Test
 	void 사용자는_게시물을_작성할_수_있다() throws Exception {
 		// given
-		PostCreate postCreateDto = PostCreate.builder()
+		PostCreate postCreate = PostCreate.builder()
 			.content("post content")
 			.writerId(1)
 			.build();
@@ -45,7 +45,7 @@ class PostCreateControllerTest {
 		// then
 		mockMvc.perform(post("/api/posts")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(postCreateDto)))
+				.content(objectMapper.writeValueAsString(postCreate)))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.id").value(1))
 			.andExpect(jsonPath("$.content").value("post content"))

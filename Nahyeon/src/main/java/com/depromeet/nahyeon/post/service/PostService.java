@@ -1,16 +1,14 @@
 package com.depromeet.nahyeon.post.service;
 
-import java.time.Clock;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
+import com.depromeet.nahyeon.post.domain.Post;
 import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
-import com.depromeet.nahyeon.post.infrastructure.PostEntity;
 import com.depromeet.nahyeon.post.service.port.PostRepository;
-import com.depromeet.nahyeon.user.infrastructure.UserEntity;
+import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,25 +21,21 @@ public class PostService {
 	private final PostRepository postRepository;
 	private final UserService userService;
 
-	public PostEntity getById(long id) {
+	public Post getById(long id) {
 		return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
 	}
 
 	@Transactional
-	public PostEntity create(PostCreate postCreateDto) {
-		UserEntity userEntity = userService.getById(postCreateDto.getWriterId());
-		PostEntity postEntity = new PostEntity();
-		postEntity.setWriter(userEntity);
-		postEntity.setContent(postCreateDto.getContent());
-		postEntity.setCreatedAt(Clock.systemUTC().millis());
-		return postRepository.save(postEntity);
+	public Post create(PostCreate postCreate) {
+		User user = userService.getById(postCreate.getWriterId());
+		Post post = Post.of(user, postCreate);
+		return postRepository.save(post);
 	}
 
 	@Transactional
-	public PostEntity update(long id, PostUpdate postUpdateDto) {
-		PostEntity postEntity = getById(id);
-		postEntity.setContent(postUpdateDto.getContent());
-		postEntity.setModifiedAt(Clock.systemUTC().millis());
-		return postRepository.save(postEntity);
+	public Post update(long id, PostUpdate postUpdate) {
+		Post post = getById(id);
+		post = post.update(postUpdate);
+		return postRepository.save(post);
 	}
 }

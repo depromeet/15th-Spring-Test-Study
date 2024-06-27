@@ -51,8 +51,7 @@ class UserControllerTest {
 			.andExpect(jsonPath("$.email").value("nahyeonee99@gmail.com"))
 			.andExpect(jsonPath("$.nickname").value("nahyeonee99"))
 			.andExpect(jsonPath("$.address").doesNotExist())
-			.andExpect(jsonPath("$.status").value(
-				"ACTIVE")); // result = {"id":1,"email":"nahyeonee99@gmail.com","nickname":"nahyeonee99","status":null,"lastLoginAt":0} FIXME
+			.andExpect(jsonPath("$.status").value("ACTIVE"));
 	}
 
 	@Test

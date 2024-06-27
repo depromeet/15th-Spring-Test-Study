@@ -9,10 +9,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
+import com.depromeet.nahyeon.post.domain.Post;
 import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
-import com.depromeet.nahyeon.post.infrastructure.PostEntity;
-import com.depromeet.nahyeon.post.service.PostService;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")
@@ -29,7 +28,7 @@ class PostServiceTest {
 	void getById_는_존재하는_게시물을_내려준다() {
 		// given
 		// when
-		PostEntity result = postService.getById(1);
+		Post result = postService.getById(1);
 
 		// then
 		assertThat(result).isNotNull();
@@ -40,13 +39,13 @@ class PostServiceTest {
 	@Test
 	void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
 		// given
-		PostCreate postCreateDto = PostCreate.builder()
+		PostCreate postCreate = PostCreate.builder()
 			.writerId(1L)
 			.content("test content")
 			.build();
 
 		// when
-		PostEntity result = postService.create(postCreateDto);
+		Post result = postService.create(postCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -65,7 +64,7 @@ class PostServiceTest {
 		postService.update(1, postUpdateDto);
 
 		// then
-		PostEntity postEntity = postService.getById(1);
+		Post postEntity = postService.getById(1);
 		assertThat(postEntity.getContent()).isEqualTo("updated content :)");
 		assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
 	}

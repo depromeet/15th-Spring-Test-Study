@@ -2,11 +2,11 @@ package com.depromeet.nahyeon.post.service.port;
 
 import java.util.Optional;
 
-import com.depromeet.nahyeon.post.infrastructure.PostEntity;
+import com.depromeet.nahyeon.post.domain.Post;
 
 public interface PostRepository {
 
-	Optional<PostEntity> findById(long id);
+	Optional<Post> findById(long id);
 
-	PostEntity save(PostEntity postEntity);
+	Post save(Post post);
 }

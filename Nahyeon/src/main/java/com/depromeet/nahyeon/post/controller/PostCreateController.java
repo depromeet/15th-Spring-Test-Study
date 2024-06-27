@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.controller.response.PostResponse;
+import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.service.PostService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,11 +21,10 @@ import lombok.RequiredArgsConstructor;
 public class PostCreateController {
 
 	private final PostService postService;
-	private final PostController postController;
 
 	@PostMapping
-	public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreateDto) {
+	public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreate) {
 		return ResponseEntity.status(HttpStatus.CREATED)
-			.body(postController.toResponse(postService.create(postCreateDto)));
+			.body(PostResponse.from(postService.create(postCreate)));
 	}
 }

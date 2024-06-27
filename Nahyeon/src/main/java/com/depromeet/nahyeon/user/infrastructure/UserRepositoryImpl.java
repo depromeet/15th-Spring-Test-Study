@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.service.port.UserRepository;
 
@@ -16,22 +17,22 @@ public class UserRepositoryImpl implements UserRepository {
 	private final UserJpaRepository userJpaRepository;
 
 	@Override
-	public Optional<UserEntity> findById(long id) {
-		return userJpaRepository.findById(id);
+	public Optional<User> findById(long id) {
+		return userJpaRepository.findById(id).map(UserEntity::toModel);
 	}
 
 	@Override
-	public Optional<UserEntity> findByIdAndStatus(long id, UserStatus status) {
-		return userJpaRepository.findByIdAndStatus(id, status);
+	public Optional<User> findByIdAndStatus(long id, UserStatus status) {
+		return userJpaRepository.findByIdAndStatus(id, status).map(UserEntity::toModel);
 	}
 
 	@Override
-	public Optional<UserEntity> findByEmailAndStatus(String email, UserStatus status) {
-		return userJpaRepository.findByEmailAndStatus(email, status);
+	public Optional<User> findByEmailAndStatus(String email, UserStatus status) {
+		return userJpaRepository.findByEmailAndStatus(email, status).map(UserEntity::toModel);
 	}
 
 	@Override
-	public UserEntity save(UserEntity userEntity) {
-		return userJpaRepository.save(userEntity);
+	public User save(User user) {
+		return userJpaRepository.save(UserEntity.fromModel(user)).toModel();
 	}
 }
