@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.service;
+package com.depromeet.nahyeon.user.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.service;
+package com.depromeet.nahyeon.post.service;
 
 import static org.assertj.core.api.Assertions.*;
 

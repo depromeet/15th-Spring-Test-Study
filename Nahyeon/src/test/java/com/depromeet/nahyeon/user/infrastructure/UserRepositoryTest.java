@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.repository;
+package com.depromeet.nahyeon.user.infrastructure;
 
 import static org.assertj.core.api.Assertions.*;
 
