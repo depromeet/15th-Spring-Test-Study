@@ -4,11 +4,12 @@ import java.time.Clock;
 
 import org.springframework.stereotype.Service;
 
+import com.depromeet.yunbeom.post.service.port.PostRepository;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
 import com.depromeet.yunbeom.post.domain.PostCreate;
 import com.depromeet.yunbeom.post.domain.PostUpdate;
 import com.depromeet.yunbeom.post.infrastructure.PostEntity;
-import com.depromeet.yunbeom.post.infrastructure.PostRepository;
+import com.depromeet.yunbeom.post.infrastructure.PostJpaRepository;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
 import com.depromeet.yunbeom.user.service.UserService;
 

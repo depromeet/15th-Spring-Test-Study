@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.infrastructure.UserRepository;
+import com.depromeet.yunbeom.user.infrastructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -36,7 +36,7 @@ class UserControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
-	private UserRepository userRepository;
+	private UserJpaRepository userJpaRepository;
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -74,7 +74,7 @@ class UserControllerTest {
 				get("/api/users/{userId}/verify", 12)
 					.queryParam("certificationCode", "1234asda-1321dada-12dascascet"))
 			.andExpect(status().isFound());
-		UserEntity userEntity = userRepository.findById(12L).get();
+		UserEntity userEntity = userJpaRepository.findById(12L).get();
 		assertThat(userEntity.getStatus()).isEqualTo(UserStatus.ACTIVE);
 	}
 

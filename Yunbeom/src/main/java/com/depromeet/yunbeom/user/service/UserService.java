@@ -4,17 +4,16 @@ import java.time.Clock;
 import java.util.UUID;
 
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.depromeet.yunbeom.user.domain.UserCreate;
+import com.depromeet.yunbeom.user.domain.UserStatus;
+import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
-import com.depromeet.yunbeom.user.domain.UserStatus;
-import com.depromeet.yunbeom.user.domain.UserCreate;
-import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.infrastructure.UserRepository;
+import com.depromeet.yunbeom.user.service.port.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final JavaMailSender mailSender;
+    private final CertificationService certificationService;
 
     @Transactional(readOnly = true)
     public UserEntity getByEmail(String email) {
@@ -48,8 +47,7 @@ public class UserService {
         userEntity.setStatus(UserStatus.PENDING);
         userEntity.setCertificationCode(UUID.randomUUID().toString());
         userEntity = userRepository.save(userEntity);
-        String certificationUrl = generateCertificationUrl(userEntity);
-        sendCertificationEmail(userCreate.getEmail(), certificationUrl);
+        certificationService.send(userCreate.getEmail(), userEntity.getId(), userEntity.getCertificationCode());
         return userEntity;
     }
 
@@ -77,15 +75,5 @@ public class UserService {
         userEntity.setStatus(UserStatus.ACTIVE);
     }
 
-    private void sendCertificationEmail(String email, String certificationUrl) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Please certify your email address");
-        message.setText("Please click the following link to certify your email address: " + certificationUrl);
-        mailSender.send(message);
-    }
 
-    private String generateCertificationUrl(UserEntity userEntity) {
-        return "http://localhost:8080/api/users/" + userEntity.getId() + "/verify?certificationCode=" + userEntity.getCertificationCode();
-    }
 }

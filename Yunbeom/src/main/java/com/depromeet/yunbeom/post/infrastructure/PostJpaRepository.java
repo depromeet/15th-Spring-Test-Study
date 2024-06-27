@@ -2,6 +2,6 @@ package com.depromeet.yunbeom.post.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostRepository extends JpaRepository<PostEntity, Long> {
+public interface PostJpaRepository extends JpaRepository<PostEntity, Long> {
 
 }
