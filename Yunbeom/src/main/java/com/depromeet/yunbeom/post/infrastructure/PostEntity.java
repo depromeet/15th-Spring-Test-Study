@@ -1,5 +1,6 @@
 package com.depromeet.yunbeom.post.infrastructure;
 
+import com.depromeet.yunbeom.post.domain.Post;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
 
 import jakarta.persistence.Column;
@@ -36,4 +37,23 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity writer;
 
+    public static PostEntity fromModel(Post post) {
+        PostEntity postEntity = new PostEntity();
+        postEntity.id = post.getId();
+        postEntity.content = post.getContent();
+        postEntity.createdAt = post.getCreatedAt();
+        postEntity.modifiedAt = post.getModifiedAt();
+        postEntity.writer = UserEntity.fromModel(post.getWriter());
+
+        return postEntity;
+    }
+    public Post toModel() {
+        return Post.builder()
+            .id(id)
+            .content(content)
+            .createdAt(createdAt)
+            .modifiedAt(modifiedAt)
+            .writer(writer.toModel())
+            .build();
+    }
 }
