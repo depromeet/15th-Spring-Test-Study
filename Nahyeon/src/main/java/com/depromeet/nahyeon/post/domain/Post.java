@@ -2,6 +2,7 @@ package com.depromeet.nahyeon.post.domain;
 
 import java.time.Clock;
 
+import com.depromeet.nahyeon.common.service.port.ClockHolder;
 import com.depromeet.nahyeon.user.domain.User;
 
 import lombok.Builder;
@@ -25,8 +26,8 @@ public class Post {
 		this.writer = writer;
 	}
 
-	public static Post of(User user, PostCreate postCreate) {
-		long now = Clock.systemUTC().millis();
+	public static Post of(User user, PostCreate postCreate, ClockHolder clockHolder) {
+		long now = clockHolder.millis();
 		return Post.builder()
 			.content(postCreate.getContent())
 			.createdAt(now)
@@ -35,12 +36,12 @@ public class Post {
 			.build();
 	}
 
-	public Post update(PostUpdate postUpdate) {
+	public Post update(PostUpdate postUpdate, ClockHolder clockHolder) {
 		return Post.builder()
 			.id(id)
 			.content(postUpdate.getContent())
 			.createdAt(createdAt)
-			.modifiedAt(Clock.systemUTC().millis())
+			.modifiedAt(clockHolder.millis())
 			.writer(writer)
 			.build();
 	}

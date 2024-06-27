@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
+import com.depromeet.nahyeon.common.service.port.ClockHolder;
+import com.depromeet.nahyeon.common.service.port.UuidHolder;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserCreate;
 import com.depromeet.nahyeon.user.domain.UserStatus;
@@ -19,6 +21,8 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final CertificationService certificationService;
+	private final UuidHolder uuidHolder;
+	private final ClockHolder clockHolder;
 
 	public User getById(long id) {
 		return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
@@ -32,7 +36,7 @@ public class UserService {
 
 	@Transactional
 	public User create(UserCreate userCreate) {
-		User user = User.from(userCreate);
+		User user = User.from(userCreate, uuidHolder);
 		user = userRepository.save(user);
 		certificationService.send(user.getEmail(), user.getId(), user.getCertificationCode());
 		return user;
@@ -49,7 +53,7 @@ public class UserService {
 	public void login(long id) {
 		User user = userRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Users", id));
-		user = user.login();
+		user = user.login(clockHolder);
 		userRepository.save(user);
 	}
 
