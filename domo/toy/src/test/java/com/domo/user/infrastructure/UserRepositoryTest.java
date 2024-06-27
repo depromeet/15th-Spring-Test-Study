@@ -1,8 +1,7 @@
-package com.domo.repository;
+package com.domo.user.infrastructure;
 
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;
-import com.domo.user.infstructure.UserEntity;
 import com.domo.user.service.port.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

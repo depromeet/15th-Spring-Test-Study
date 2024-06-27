@@ -1,4 +1,4 @@
-package com.domo.controller;
+package com.domo.user.controller;
 
 import com.domo.user.domain.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +36,7 @@ class UserCreateControllerTest {
 
     @Test
     void 사용자는_회원가입을_할_수있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
-        UserCreate userCreateDto = UserCreate.builder()
+        UserCreate userCreate = UserCreate.builder()
                 .email("me@dev-domo.com")
                 .nickname("domo짱")
                 .address("Pangyo")
@@ -46,7 +46,7 @@ class UserCreateControllerTest {
         mockMvc.perform(post("/api/users")
                         .header("EMAIL", "me@dev-domo.com")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userCreateDto)))
+                        .content(objectMapper.writeValueAsString(userCreate)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.email").value("me@dev-domo.com"))
