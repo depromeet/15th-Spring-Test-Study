@@ -38,3 +38,6 @@ out/
 
 # YAML files
 *.yml
+
+#properties files
+*.properties
