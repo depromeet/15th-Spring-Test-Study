@@ -1,13 +1,14 @@
 package com.depromeet.yunbeom.user.controller.response;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserStatus;
 
-class UserResponseTest {
+class MyProfileResponseTest {
 
 	@Test
 	public void User으로_응답을_생성할_수_있다() {
@@ -23,12 +24,13 @@ class UserResponseTest {
 			.build();
 
 		// when
-		UserResponse userResponse = UserResponse.from(user);
+		MyProfileResponse myProfileResponse = MyProfileResponse.from(user);
 
 		// then
-		assertThat(userResponse.getId()).isEqualTo(1);
-		assertThat(userResponse.getEmail()).isEqualTo("uiurihappy@naver.com");
-		assertThat(userResponse.getStatus()).isEqualTo(UserStatus.ACTIVE);
-		assertThat(userResponse.getLastLoginAt()).isEqualTo(100L);
+		assertThat(myProfileResponse.getId()).isEqualTo(1);
+		assertThat(myProfileResponse.getEmail()).isEqualTo("uiurihappy@naver.com");
+		assertThat(myProfileResponse.getAddress()).isEqualTo("Seoul");
+		assertThat(myProfileResponse.getStatus()).isEqualTo(UserStatus.ACTIVE);
+		assertThat(myProfileResponse.getLastLoginAt()).isEqualTo(100L);
 	}
 }

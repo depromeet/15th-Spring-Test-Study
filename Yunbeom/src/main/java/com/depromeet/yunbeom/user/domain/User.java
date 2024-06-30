@@ -3,6 +3,8 @@ package com.depromeet.yunbeom.user.domain;
 import java.time.Clock;
 import java.util.UUID;
 
+import com.depromeet.yunbeom.common.service.port.ClockHolder;
+import com.depromeet.yunbeom.common.service.port.UuidHolder;
 import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 import com.depromeet.yunbeom.user.infrastructure.UserEntity;
 
@@ -31,12 +33,12 @@ public class User {
 		this.lastLoginAt = lastLoginAt;
 	}
 
-	public static User from(UserCreate userCreate) {
+	public static User from(UserCreate userCreate, UuidHolder uuidHolder) {
 		return User.builder()
 			.email(userCreate.getEmail())
 			.nickname(userCreate.getNickname())
 			.address(userCreate.getAddress())
-			.certificationCode(UUID.randomUUID().toString())
+			.certificationCode(uuidHolder.random())
 			.status(UserStatus.PENDING)
 			.lastLoginAt(null)
 			.build();
@@ -54,7 +56,7 @@ public class User {
 			.build();
 	}
 
-	public User login() {
+	public User login(ClockHolder clockHolder) {
 		return User.builder()
 			.id(id)
 			.email(email)
@@ -62,7 +64,7 @@ public class User {
 			.address(address)
 			.certificationCode(certificationCode)
 			.status(status)
-			.lastLoginAt(Clock.systemUTC().millis())
+			.lastLoginAt(clockHolder.millis())
 			.build();
 	}
 

@@ -1,19 +1,15 @@
 package com.depromeet.yunbeom.user.service;
 
-import java.time.Clock;
-import java.util.UUID;
-
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.depromeet.yunbeom.common.service.port.ClockHolder;
+import com.depromeet.yunbeom.common.service.port.UuidHolder;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.domain.UserUpdate;
-import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
-import com.depromeet.yunbeom.user.infrastructure.UserEntity;
 import com.depromeet.yunbeom.user.service.port.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +20,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;
+    private final UuidHolder uuidHolder;
+    private final ClockHolder clockHolder;
 
     @Transactional(readOnly = true)
     public User getByEmail(String email) {
@@ -41,7 +39,7 @@ public class UserService {
 
     @Transactional
     public User create(UserCreate userCreate) {
-        User user = User.from(userCreate);
+        User user = User.from(userCreate, uuidHolder);
         user = userRepository.save(user);
         certificationService.send(userCreate.getEmail(), user.getId(), user.getCertificationCode());
         return user;
@@ -58,7 +56,7 @@ public class UserService {
     @Transactional
     public void login(long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id));
-        user = user.login();
+        user = user.login(clockHolder);
         userRepository.save(user);
     }
 
