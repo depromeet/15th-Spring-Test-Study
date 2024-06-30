@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.depromeet.yunbeom.mock.TestClockHolder;
+import com.depromeet.yunbeom.mock.TestUuidHolder;
 import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 
 class UserTest {
@@ -19,7 +21,7 @@ class UserTest {
 			.build();
 
 		// when
-		User user = User.from(userCreate);
+		User user = User.from(userCreate, new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"));
 
 		// then
 		assertThat(user.getId()).isNull();
@@ -74,10 +76,10 @@ class UserTest {
 			.build();
 
 		// when
-		user = user.login();
+		user = user.login(new TestClockHolder(1678530673958L));
 
 		// then
-		assertThat(user.getLastLoginAt()).isNotEqualTo(100L);
+		assertThat(user.getLastLoginAt()).isEqualTo(1678530673958L);
 		
 	}
 
