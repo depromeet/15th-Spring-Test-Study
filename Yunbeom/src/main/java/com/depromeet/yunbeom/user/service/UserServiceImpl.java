@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.depromeet.yunbeom.common.service.port.ClockHolder;
 import com.depromeet.yunbeom.common.service.port.UuidHolder;
+import com.depromeet.yunbeom.user.controller.port.UserService;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.domain.UserStatus;
@@ -12,11 +13,13 @@ import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
 import com.depromeet.yunbeom.user.service.port.UserRepository;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Builder
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;

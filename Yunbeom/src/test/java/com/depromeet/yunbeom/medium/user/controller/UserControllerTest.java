@@ -1,4 +1,4 @@
-package com.depromeet.yunbeom.user.controller;
+package com.depromeet.yunbeom.medium.user.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

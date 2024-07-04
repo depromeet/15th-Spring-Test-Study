@@ -2,6 +2,7 @@ package com.depromeet.yunbeom.post.domain;
 
 import java.time.Clock;
 
+import com.depromeet.yunbeom.common.service.port.ClockHolder;
 import com.depromeet.yunbeom.user.domain.User;
 
 import lombok.Builder;
@@ -24,20 +25,20 @@ public class Post {
 		this.writer = writer;
 	}
 
-	public static Post from(PostCreate postCreate, User user) {
+	public static Post from(User writer, PostCreate postCreate, ClockHolder clockHolder) {
 		return Post.builder()
 			.content(postCreate.getContent())
-			.createdAt(Clock.systemUTC().millis())
-			.writer(user)
+			.writer(writer)
+			.createdAt(clockHolder.millis())
 			.build();
 	}
 
-	public Post update(PostUpdate postUpdate) {
+	public Post update(PostUpdate postUpdate, ClockHolder clockHolder) {
 		return Post.builder()
 			.id(id)
 			.content(postUpdate.getContent())
 			.createdAt(createdAt)
-			.modifiedAt(createdAt)
+			.modifiedAt(clockHolder.millis())
 			.writer(writer)
 			.build();
 	}
