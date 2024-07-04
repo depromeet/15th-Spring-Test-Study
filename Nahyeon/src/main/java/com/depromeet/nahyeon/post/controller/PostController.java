@@ -30,8 +30,8 @@ public class PostController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdateDto) {
+	public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
 		return ResponseEntity.ok()
-			.body(PostResponse.from(postService.update(id, postUpdateDto)));
+			.body(PostResponse.from(postService.update(id, postUpdate)));
 	}
 }

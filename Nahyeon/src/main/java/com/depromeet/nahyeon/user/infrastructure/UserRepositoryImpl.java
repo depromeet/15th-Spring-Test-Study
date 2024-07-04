@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.service.port.UserRepository;
@@ -15,6 +16,11 @@ import lombok.RequiredArgsConstructor;
 public class UserRepositoryImpl implements UserRepository {
 
 	private final UserJpaRepository userJpaRepository;
+
+	@Override
+	public User getById(long id) {
+		return findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id));
+	}
 
 	@Override
 	public Optional<User> findById(long id) {

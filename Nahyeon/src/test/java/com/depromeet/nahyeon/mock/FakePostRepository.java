@@ -25,7 +25,7 @@ public class FakePostRepository implements PostRepository {
 	public Post save(Post post) {
 		if (post.getId() == null || post.getId() == 0) {
 			Post newPost = Post.builder()
-				.id(post.getId())
+				.id(1L)
 				.content(post.getContent())
 				.createdAt(post.getCreatedAt())
 				.modifiedAt(post.getModifiedAt())

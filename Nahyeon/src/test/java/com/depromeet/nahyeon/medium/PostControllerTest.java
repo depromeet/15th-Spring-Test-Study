@@ -58,7 +58,7 @@ class PostControllerTest {
 	@Test
 	void 사용자는_게시물을_수정할_수_있다() throws Exception {
 		// given
-		PostUpdate postUpdateDto = PostUpdate.builder()
+		PostUpdate postUpdate = PostUpdate.builder()
 			.content("updated content :)")
 			.build();
 
@@ -66,7 +66,7 @@ class PostControllerTest {
 		// then
 		mockMvc.perform(put("/api/posts/1")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(postUpdateDto)))
+				.content(objectMapper.writeValueAsString(postUpdate)))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id").isNumber())
 			.andExpect(jsonPath("$.content").value("updated content :)"))

@@ -10,17 +10,19 @@ import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
 import com.depromeet.nahyeon.post.service.port.PostRepository;
 import com.depromeet.nahyeon.user.domain.User;
-import com.depromeet.nahyeon.user.service.UserService;
+import com.depromeet.nahyeon.user.service.port.UserRepository;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
+@Builder
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PostService {
 
 	private final PostRepository postRepository;
-	private final UserService userService;
+	private final UserRepository userRepository;
 	private final ClockHolder clockHolder;
 
 	public Post getById(long id) {
@@ -29,7 +31,7 @@ public class PostService {
 
 	@Transactional
 	public Post create(PostCreate postCreate) {
-		User user = userService.getById(postCreate.getWriterId());
+		User user = userRepository.getById(postCreate.getWriterId());
 		Post post = Post.of(user, postCreate, clockHolder);
 		return postRepository.save(post);
 	}

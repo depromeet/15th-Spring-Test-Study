@@ -38,7 +38,7 @@ class PostServiceTest {
 	}
 
 	@Test
-	void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
+	void PostCreate_를_이용하여_게시물을_생성할_수_있다() {
 		// given
 		PostCreate postCreate = PostCreate.builder()
 			.writerId(1L)
@@ -48,6 +48,8 @@ class PostServiceTest {
 		// when
 		Post result = postService.create(postCreate);
 
+		System.out.println("post ID : " + result.getId());
+
 		// then
 		assertThat(result.getId()).isNotNull();
 		assertThat(result.getContent()).isEqualTo("test content");
@@ -55,14 +57,14 @@ class PostServiceTest {
 	}
 
 	@Test
-	void postUpdateDto_를_이용하여_게시물을_생성할_수_있다() {
+	void postUpdate_를_이용하여_게시물을_생성할_수_있다() {
 		// given
-		PostUpdate postUpdateDto = PostUpdate.builder()
+		PostUpdate postUpdate = PostUpdate.builder()
 			.content("updated content :)")
 			.build();
 
 		// when
-		postService.update(1, postUpdateDto);
+		postService.update(1, postUpdate);
 
 		// then
 		Post postEntity = postService.getById(1);
