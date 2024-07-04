@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.user.controller;
+package com.depromeet.nahyeon.medium;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

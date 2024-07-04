@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.post.service;
+package com.depromeet.nahyeon.medium;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import com.depromeet.nahyeon.post.domain.Post;
 import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
+import com.depromeet.nahyeon.post.service.PostService;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")

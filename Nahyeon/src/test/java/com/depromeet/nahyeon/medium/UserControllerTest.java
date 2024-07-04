@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.user.controller;
+package com.depromeet.nahyeon.medium;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

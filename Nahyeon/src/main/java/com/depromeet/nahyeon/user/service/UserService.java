@@ -12,8 +12,10 @@ import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.domain.UserUpdate;
 import com.depromeet.nahyeon.user.service.port.UserRepository;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
+@Builder
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
