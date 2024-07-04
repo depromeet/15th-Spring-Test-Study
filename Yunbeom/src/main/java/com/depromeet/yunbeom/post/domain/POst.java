@@ -1,7 +1,5 @@
 package com.depromeet.yunbeom.post.domain;
 
-import java.time.Clock;
-
 import com.depromeet.yunbeom.common.service.port.ClockHolder;
 import com.depromeet.yunbeom.user.domain.User;
 
