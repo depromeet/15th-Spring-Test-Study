@@ -36,7 +36,7 @@ import com.depromeet.yunbeom.user.service.UserServiceImpl;
 	// 테스트 실행한 후에 실행합니다.
 	@Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
-class UserServiceImplTest {
+class UserServiceTest {
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;

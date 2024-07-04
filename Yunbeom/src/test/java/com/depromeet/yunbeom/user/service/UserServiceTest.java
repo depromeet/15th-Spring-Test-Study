@@ -34,8 +34,8 @@ public class UserServiceTest {
 			.build();
 		fakeUserRepository.save(User.builder()
 			.id(1L)
-			.email("kok202@naver.com")
-			.nickname("kok202")
+			.email("uiurihappy@naver.com")
+			.nickname("uiurihappy")
 			.address("Seoul")
 			.certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
 			.status(UserStatus.ACTIVE)
@@ -43,8 +43,8 @@ public class UserServiceTest {
 			.build());
 		fakeUserRepository.save(User.builder()
 			.id(2L)
-			.email("kok303@naver.com")
-			.nickname("kok303")
+			.email("ybchar@naver.com")
+			.nickname("ybchar")
 			.address("Seoul")
 			.certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab")
 			.status(UserStatus.PENDING)
@@ -55,19 +55,19 @@ public class UserServiceTest {
 	@Test
 	void getByEmail은_ACTIVE_상태인_유저를_찾아올_수_있다() {
 		// given
-		String email = "kok202@naver.com";
+		String email = "uiurihappy@naver.com";
 
 		// when
 		User result = userService.getByEmail(email);
 
 		// then
-		assertThat(result.getNickname()).isEqualTo("kok202");
+		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
 
 	@Test
 	void getByEmail은_PENDING_상태인_유저는_찾아올_수_없다() {
 		// given
-		String email = "kok303@naver.com";
+		String email = "ybchar@naver.com";
 
 		// when
 		// then
@@ -83,7 +83,7 @@ public class UserServiceTest {
 		User result = userService.getById(1);
 
 		// then
-		assertThat(result.getNickname()).isEqualTo("kok202");
+		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
 
 	@Test
@@ -100,9 +100,9 @@ public class UserServiceTest {
 	void userCreate_를_이용하여_유저를_생성할_수_있다() {
 		// given
 		UserCreate userCreate = UserCreate.builder()
-			.email("kok202@kakao.com")
+			.email("uiurihappy@kakao.com")
 			.address("Gyeongi")
-			.nickname("kok202-k")
+			.nickname("uiurihappy-k")
 			.build();
 
 		// when
@@ -119,7 +119,7 @@ public class UserServiceTest {
 		// given
 		UserUpdate userUpdate = UserUpdate.builder()
 			.address("Incheon")
-			.nickname("kok202-n")
+			.nickname("uiurihappy-n")
 			.build();
 
 		// when
@@ -129,7 +129,7 @@ public class UserServiceTest {
 		User user = userService.getById(1);
 		assertThat(user.getId()).isNotNull();
 		assertThat(user.getAddress()).isEqualTo("Incheon");
-		assertThat(user.getNickname()).isEqualTo("kok202-n");
+		assertThat(user.getNickname()).isEqualTo("uiurihappy-n");
 	}
 
 	@Test

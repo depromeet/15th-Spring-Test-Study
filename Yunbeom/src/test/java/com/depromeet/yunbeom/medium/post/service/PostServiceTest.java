@@ -14,8 +14,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import com.depromeet.yunbeom.post.domain.Post;
 import com.depromeet.yunbeom.post.domain.PostCreate;
 import com.depromeet.yunbeom.post.domain.PostUpdate;
-import com.depromeet.yunbeom.post.infrastructure.PostEntity;
-import com.depromeet.yunbeom.post.service.PostService;
+import com.depromeet.yunbeom.post.service.PostServiceImpl;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -27,13 +26,13 @@ import com.depromeet.yunbeom.post.service.PostService;
 class PostServiceTest {
 
 	@Autowired
-	private PostService postService;
+	private PostServiceImpl postServiceImpl;
 
 	@Test
 	void getById는_존재하는_게시물을_내려준다() {
 		// given
 		// when
-		Post result = postService.getById(11);
+		Post result = postServiceImpl.getById(11);
 
 		// then
 		assertThat(result.getContent()).isEqualTo("helloworld");
@@ -49,7 +48,7 @@ class PostServiceTest {
 			.build();
 
 		// when
-		Post result = postService.create(postCreate);
+		Post result = postServiceImpl.create(postCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -65,10 +64,10 @@ class PostServiceTest {
 			.build();
 
 		// when
-		postService.update(11, postUpdate);
+		postServiceImpl.update(11, postUpdate);
 
 		// then
-		Post postEntity= postService.getById(11);
+		Post postEntity= postServiceImpl.getById(11);
 		assertThat(postEntity.getContent()).isEqualTo("hello world :)");
 		assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
 	}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.depromeet.yunbeom.post.domain.PostCreate;
 import com.depromeet.yunbeom.post.controller.response.PostResponse;
-import com.depromeet.yunbeom.post.service.PostService;
+import com.depromeet.yunbeom.post.service.PostServiceImpl;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostCreateController {
 
-    private final PostService postService;
+    private final PostServiceImpl postServiceImpl;
     private final PostController postController;
 
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreate) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(PostResponse.from(postService.create(postCreate)));
+            .body(PostResponse.from(postServiceImpl.create(postCreate)));
     }
 }
