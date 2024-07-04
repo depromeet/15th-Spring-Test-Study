@@ -22,8 +22,7 @@ import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
 import com.depromeet.yunbeom.user.domain.UserStatus;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.domain.UserUpdate;
-import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.service.UserService;
+import com.depromeet.yunbeom.user.service.UserServiceImpl;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -37,10 +36,10 @@ import com.depromeet.yunbeom.user.service.UserService;
 	// 테스트 실행한 후에 실행합니다.
 	@Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
-class UserServiceTest {
+class UserServiceImplTest {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userServiceImpl;
 	@MockBean
 	private JavaMailSender mailSender;
 
@@ -50,7 +49,7 @@ class UserServiceTest {
 		String email = "uiurihappy@naver.com";
 
 		// when
-		User result = userService.getByEmail(email);
+		User result = userServiceImpl.getByEmail(email);
 		// then
 		assertThat(result.getNickname()).isEqualTo("uiurihappy");
 	}
@@ -63,7 +62,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			User result = userService.getByEmail(email);
+			User result = userServiceImpl.getByEmail(email);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 
@@ -71,7 +70,7 @@ class UserServiceTest {
 	void getById는_ACTIVE_상태인_유저를_찾아올_수_있다() {
 		// given
 		// when
-		User result = userService.getById(11);
+		User result = userServiceImpl.getById(11);
 
 		// then
 		assertThat(result.getNickname()).isEqualTo("uiurihappy");
@@ -83,7 +82,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			User result = userService.getById(12);
+			User result = userServiceImpl.getById(12);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 
@@ -98,7 +97,7 @@ class UserServiceTest {
 		BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
 		// when
-		User result = userService.create(userCreate);
+		User result = userServiceImpl.create(userCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -114,10 +113,10 @@ class UserServiceTest {
 			.build();
 
 		// when
-		userService.update(11, userUpdate);
+		userServiceImpl.update(11, userUpdate);
 
 		// then
-		User userEntity = userService.getById(11);
+		User userEntity = userServiceImpl.getById(11);
 		assertThat(userEntity.getId()).isNotNull();
 		assertThat(userEntity.getAddress()).isEqualTo("Incheon");
 		assertThat(userEntity.getNickname()).isEqualTo("uiurihappy-n");
@@ -127,10 +126,10 @@ class UserServiceTest {
 	void user를_로그인_시키면_마지막_로그인_시간이_변경된다() {
 		// given
 		// when
-		userService.login(11);
+		userServiceImpl.login(11);
 
 		// then
-		User userEntity = userService.getById(11);
+		User userEntity = userServiceImpl.getById(11);
 		// 0 이상의 값이 나와야 한다.
 		assertThat(userEntity.getLastLoginAt()).isGreaterThan(0L);
 	}
@@ -139,10 +138,10 @@ class UserServiceTest {
 	void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
 		// given
 		// when
-		userService.verifyEmail(12, "1234asda-1321dada-12dascascet");
+		userServiceImpl.verifyEmail(12, "1234asda-1321dada-12dascascet");
 
 		// then
-		User userEntity = userService.getById(12);
+		User userEntity = userServiceImpl.getById(12);
 		assertThat(userEntity.getStatus()).isEqualTo(UserStatus.ACTIVE);
 	}
 
@@ -152,7 +151,7 @@ class UserServiceTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			userService.verifyEmail(12, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac");
+			userServiceImpl.verifyEmail(12, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac");
 		}).isInstanceOf(CertificationCodeNotMatchedException.class);
 	}
 

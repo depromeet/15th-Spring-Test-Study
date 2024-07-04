@@ -1,10 +1,11 @@
-package com.depromeet.yunbeom.user.controller.response;
+package com.depromeet.yunbeom.medium.user.controller.response;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.depromeet.yunbeom.user.controller.response.MyProfileResponse;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserStatus;
 

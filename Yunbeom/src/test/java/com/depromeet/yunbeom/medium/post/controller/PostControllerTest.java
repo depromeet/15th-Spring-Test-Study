@@ -1,4 +1,4 @@
-package com.depromeet.yunbeom.post.controller;
+package com.depromeet.yunbeom.medium.post.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

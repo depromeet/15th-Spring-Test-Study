@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.controller.response.UserResponse;
-import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.service.UserService;
+import com.depromeet.yunbeom.user.service.UserServiceImpl;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +20,11 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserCreateController {
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
-        User user = userService.create(userCreate);
+        User user = userServiceImpl.create(userCreate);
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(UserResponse.from(user));
