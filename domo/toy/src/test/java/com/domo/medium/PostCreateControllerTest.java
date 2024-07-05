@@ -1,4 +1,4 @@
-package com.domo.post.controller;
+package com.domo.medium;
 
 import com.domo.post.domain.PostCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;

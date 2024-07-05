@@ -1,8 +1,9 @@
-package com.domo.post.service;
+package com.domo.medium;
 
 import com.domo.post.domain.Post;
 import com.domo.post.domain.PostCreate;
 import com.domo.post.domain.PostUpdate;
+import com.domo.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

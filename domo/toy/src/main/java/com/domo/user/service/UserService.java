@@ -14,6 +14,7 @@ import com.domo.user.domain.UserUpdate;
 import com.domo.user.infstructure.UserEntity;
 import com.domo.user.infstructure.UserJpaRepository;
 import com.domo.user.service.port.UserRepository;
+import lombok.Builder;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 

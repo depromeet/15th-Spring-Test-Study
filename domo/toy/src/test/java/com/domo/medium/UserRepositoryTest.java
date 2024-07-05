@@ -1,4 +1,4 @@
-package com.domo.repository;
+package com.domo.medium;
 
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;

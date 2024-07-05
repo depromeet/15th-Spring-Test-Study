@@ -1,4 +1,4 @@
-package com.domo.user.controller;
+package com.domo.medium;
 
 import com.domo.user.domain.UserStatus;
 import com.domo.user.domain.UserUpdate;
