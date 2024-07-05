@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import com.depromeet.yunbeom.mock.FakeMailSender;
 
-class CertificationServiceTest {
+class CertificationServiceImplTest {
 
 	@Test
 	public void 이메일과_컨텐츠가_제대로_만들어져서_보내지는지_테스트한다() {
 		// given
 		FakeMailSender fakeMailSender = new FakeMailSender();
-		CertificationService certificationService = new CertificationService(fakeMailSender);
+		CertificationServiceImpl certificationServiceImpl = new CertificationServiceImpl(fakeMailSender);
 
 		// when
-		certificationService.send("uiurihappy@naver.com", 1, "1234asda-1321dada-12dascasc");
+		certificationServiceImpl.send("uiurihappy@naver.com", 1, "1234asda-1321dada-12dascasc");
 
 		// then
 		assertThat(fakeMailSender.email).isEqualTo("uiurihappy@naver.com");

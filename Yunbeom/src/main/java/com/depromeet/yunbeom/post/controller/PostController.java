@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.depromeet.yunbeom.user.controller.UserController;
+import com.depromeet.yunbeom.post.controller.port.PostService;
 import com.depromeet.yunbeom.post.controller.response.PostResponse;
 import com.depromeet.yunbeom.post.domain.PostUpdate;
-import com.depromeet.yunbeom.post.service.PostServiceImpl;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,21 +21,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostServiceImpl postServiceImpl;
-    private final UserController userController;
+    private final PostService postService;
 
     @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPostById(@PathVariable long id) {
         return ResponseEntity
             .ok()
-            .body(PostResponse.from(postServiceImpl.getById(id)));
+            .body(PostResponse.from(postService.getById(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
         return ResponseEntity
             .ok()
-            .body(PostResponse.from(postServiceImpl.update(id, postUpdate)));
+            .body(PostResponse.from(postService.update(id, postUpdate)));
     }
 
 }

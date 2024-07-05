@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.depromeet.yunbeom.common.service.port.ClockHolder;
 import com.depromeet.yunbeom.common.service.port.UuidHolder;
+import com.depromeet.yunbeom.user.controller.port.CertificationService;
 import com.depromeet.yunbeom.user.controller.port.UserService;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserCreate;
@@ -22,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final CertificationService certificationService;
+    private final CertificationService certificationServiceImpl;
     private final UuidHolder uuidHolder;
     private final ClockHolder clockHolder;
 
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public User create(UserCreate userCreate) {
         User user = User.from(userCreate, uuidHolder);
         user = userRepository.save(user);
-        certificationService.send(userCreate.getEmail(), user.getId(), user.getCertificationCode());
+        certificationServiceImpl.send(userCreate.getEmail(), user.getId(), user.getCertificationCode());
         return user;
     }
 
