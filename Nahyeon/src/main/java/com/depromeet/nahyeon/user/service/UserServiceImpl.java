@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
 import com.depromeet.nahyeon.common.service.port.ClockHolder;
 import com.depromeet.nahyeon.common.service.port.UuidHolder;
-import com.depromeet.nahyeon.user.controller.port.AuthenticationService;
-import com.depromeet.nahyeon.user.controller.port.UserCreateService;
-import com.depromeet.nahyeon.user.controller.port.UserReadService;
-import com.depromeet.nahyeon.user.controller.port.UserUpdateService;
+import com.depromeet.nahyeon.user.controller.port.UserService;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserCreate;
 import com.depromeet.nahyeon.user.domain.UserStatus;
@@ -23,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserCreateService, UserReadService, UserUpdateService, AuthenticationService {
+public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final CertificationService certificationService;

@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.depromeet.nahyeon.user.controller.port.AuthenticationService;
-import com.depromeet.nahyeon.user.controller.port.UserCreateService;
-import com.depromeet.nahyeon.user.controller.port.UserReadService;
-import com.depromeet.nahyeon.user.controller.port.UserUpdateService;
+import com.depromeet.nahyeon.user.controller.port.UserService;
 import com.depromeet.nahyeon.user.controller.response.MyProfileResponse;
 import com.depromeet.nahyeon.user.controller.response.UserResponse;
 import com.depromeet.nahyeon.user.domain.User;
@@ -36,18 +33,12 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class UserController {
 
-	private final UserCreateService userCreateService;
-
-	private final UserReadService userReadService;
-
-	private final UserUpdateService userUpdateService;
-
-	private final AuthenticationService authenticationService;
+	private final UserService userService;
 
 	@ResponseStatus
 	@GetMapping("/{id}")
 	public ResponseEntity<UserResponse> getUserById(@PathVariable long id) {
-		return ResponseEntity.ok().body(UserResponse.from(userReadService.getById(id)));
+		return ResponseEntity.ok().body(UserResponse.from(userService.getById(id)));
 	}
 
 	@GetMapping("/{id}/verify")
@@ -55,7 +46,7 @@ public class UserController {
 		@PathVariable long id,
 		@RequestParam String certificationCode
 	) {
-		authenticationService.verifyEmail(id, certificationCode);
+		userService.verifyEmail(id, certificationCode);
 		return ResponseEntity.status(HttpStatus.FOUND)
 			.location(URI.create("http://localhost:3000"))
 			.build();
@@ -66,9 +57,9 @@ public class UserController {
 		@Parameter(name = "EMAIL", in = ParameterIn.HEADER)
 		@RequestHeader("EMAIL") String email // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져온다.
 	) {
-		User user = userReadService.getByEmail(email);
-		authenticationService.login(user.getId());
-		user = userReadService.getByEmail(email);
+		User user = userService.getByEmail(email);
+		userService.login(user.getId());
+		user = userService.getByEmail(email);
 		return ResponseEntity.ok()
 			.body(MyProfileResponse.from(user));
 	}
@@ -80,8 +71,8 @@ public class UserController {
 		@RequestHeader("EMAIL") String email, // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져온다.
 		@RequestBody UserUpdate userUpdateDto
 	) {
-		User user = userReadService.getByEmail(email);
-		user = userUpdateService.update(user.getId(), userUpdateDto);
+		User user = userService.getByEmail(email);
+		user = userService.update(user.getId(), userUpdateDto);
 		return ResponseEntity.ok().body(MyProfileResponse.from(user));
 	}
 }
