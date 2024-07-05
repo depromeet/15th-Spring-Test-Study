@@ -1,4 +1,4 @@
-package com.example.demo.post.service;
+package com.example.demo.medium;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
