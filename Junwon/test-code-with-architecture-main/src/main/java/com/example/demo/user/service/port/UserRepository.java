@@ -6,6 +6,9 @@ import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 
 public interface UserRepository {
+
+	User getById(long id);
+
 	Optional<User> findById(long id);
 
 	Optional<User> findByIdAndStatus(long id, UserStatus userStatus);

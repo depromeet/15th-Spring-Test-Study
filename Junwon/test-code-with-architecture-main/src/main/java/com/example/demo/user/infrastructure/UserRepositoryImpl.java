@@ -2,6 +2,7 @@ package com.example.demo.user.infrastructure;
 
 import java.util.Optional;
 
+import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.user.domain.User;
@@ -15,6 +16,11 @@ import lombok.RequiredArgsConstructor;
 public class UserRepositoryImpl implements UserRepository {
 
 	private  final UserJpaRepository userJpaRepository;
+
+	@Override
+	public User getById(long id) {
+		return findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id));
+	}
 
 	@Override
 	public Optional<User> findById(long id) {
