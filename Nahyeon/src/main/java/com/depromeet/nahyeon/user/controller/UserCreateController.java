@@ -7,25 +7,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.depromeet.nahyeon.user.controller.port.UserCreateService;
 import com.depromeet.nahyeon.user.controller.response.UserResponse;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserCreate;
-import com.depromeet.nahyeon.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "유저(users)")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Builder
 public class UserCreateController {
 
-	private final UserService userService;
+	private final UserCreateService userCreateService;
 
 	@PostMapping
 	public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
-		User user = userService.create(userCreate);
+		User user = userCreateService.create(userCreate);
 		return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user));
 	}
 }

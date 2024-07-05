@@ -12,7 +12,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import com.depromeet.nahyeon.post.domain.Post;
 import com.depromeet.nahyeon.post.domain.PostCreate;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
-import com.depromeet.nahyeon.post.service.PostService;
+import com.depromeet.nahyeon.post.service.PostServiceImpl;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")
@@ -20,16 +20,16 @@ import com.depromeet.nahyeon.post.service.PostService;
 	@Sql(value = "/sql/post-service-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
 	@Sql(value = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-class PostServiceTest {
+class PostServiceImplTest {
 
 	@Autowired
-	private PostService postService;
+	private PostServiceImpl postServiceImpl;
 
 	@Test
 	void getById_는_존재하는_게시물을_내려준다() {
 		// given
 		// when
-		Post result = postService.getById(1);
+		Post result = postServiceImpl.getById(1);
 
 		// then
 		assertThat(result).isNotNull();
@@ -46,7 +46,7 @@ class PostServiceTest {
 			.build();
 
 		// when
-		Post result = postService.create(postCreate);
+		Post result = postServiceImpl.create(postCreate);
 
 		System.out.println("post ID : " + result.getId());
 
@@ -64,10 +64,10 @@ class PostServiceTest {
 			.build();
 
 		// when
-		postService.update(1, postUpdate);
+		postServiceImpl.update(1, postUpdate);
 
 		// then
-		Post postEntity = postService.getById(1);
+		Post postEntity = postServiceImpl.getById(1);
 		assertThat(postEntity.getContent()).isEqualTo("updated content :)");
 		assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
 	}

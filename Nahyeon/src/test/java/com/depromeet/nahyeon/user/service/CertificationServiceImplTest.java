@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.depromeet.nahyeon.mock.FakeMailSender;
 
-public class CertificationServiceTest {
+public class CertificationServiceImplTest {
 
 	@Test
 	public void 이메일과_컨텐츠가_제대로_만들어져서_보내지는지_테스트한다() {

@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.depromeet.nahyeon.mock.FakeMailSender;
 import com.depromeet.nahyeon.mock.FakePostRepository;
 import com.depromeet.nahyeon.mock.FakeUserRepository;
 import com.depromeet.nahyeon.mock.TestClockHolder;
@@ -15,15 +14,15 @@ import com.depromeet.nahyeon.post.domain.PostUpdate;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserStatus;
 
-class PostServiceTest {
+class PostServiceImplTest {
 
-	private PostService postService;
+	private PostServiceImpl postServiceImpl;
 
 	@BeforeEach
 	void init() {
 		FakePostRepository fakePostRepository = new FakePostRepository();
 		FakeUserRepository fakeUserRepository = new FakeUserRepository();
-		this.postService = PostService.builder()
+		this.postServiceImpl = PostServiceImpl.builder()
 			.postRepository(fakePostRepository)
 			.userRepository(fakeUserRepository)
 			.clockHolder(new TestClockHolder(4000))
@@ -68,7 +67,7 @@ class PostServiceTest {
 	void getById_는_존재하는_게시물을_내려준다() {
 		// given
 		// when
-		Post result = postService.getById(1);
+		Post result = postServiceImpl.getById(1);
 
 		// then
 		assertThat(result).isNotNull();
@@ -85,7 +84,7 @@ class PostServiceTest {
 			.build();
 
 		// when
-		Post result = postService.create(postCreate);
+		Post result = postServiceImpl.create(postCreate);
 
 		// then
 		assertThat(result.getId()).isNotNull();
@@ -101,10 +100,10 @@ class PostServiceTest {
 			.build();
 
 		// when
-		postService.update(1, postUpdate);
+		postServiceImpl.update(1, postUpdate);
 
 		// then
-		Post postEntity = postService.getById(1);
+		Post postEntity = postServiceImpl.getById(1);
 		assertThat(postEntity.getContent()).isEqualTo("updated content :)");
 		assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
 	}
