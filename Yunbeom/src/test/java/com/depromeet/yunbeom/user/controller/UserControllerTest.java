@@ -1,32 +1,17 @@
 package com.depromeet.yunbeom.user.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.depromeet.yunbeom.mock.TestContainer;
 import com.depromeet.yunbeom.user.controller.response.UserResponse;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserStatus;
-import com.depromeet.yunbeom.user.domain.UserUpdate;
 import com.depromeet.yunbeom.user.exception.CertificationCodeNotMatchedException;
 import com.depromeet.yunbeom.user.exception.ResourceNotFoundException;
-import com.depromeet.yunbeom.user.infrastructure.UserEntity;
-import com.depromeet.yunbeom.user.infrastructure.UserJpaRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 class UserControllerTest {
 	@Test
@@ -45,7 +30,7 @@ class UserControllerTest {
 			.build());
 
 		// when
-		ResponseEntity<UserResponse> result = testContainer.userController.getUserById(11);
+		ResponseEntity<UserResponse> result = testContainer.userController.getById(11);
 
 		// then
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
@@ -65,7 +50,7 @@ class UserControllerTest {
 		// when
 		// then
 		assertThatThrownBy(() -> {
-			testContainer.userController.getUserById(11);
+			testContainer.userController.getById(11);
 		}).isInstanceOf(ResourceNotFoundException.class);
 	}
 

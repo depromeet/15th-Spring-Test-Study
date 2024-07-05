@@ -40,6 +40,6 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User save(User user) {
 		// 도메인은 인프라 레이어의 정보를 모르는 것이 좋다.(캡슐화)
-		return userJpaRepository.save(UserEntity.fromModel(user)).toModel();
+		return userJpaRepository.save(UserEntity.from(user)).toModel();
 	}
 }

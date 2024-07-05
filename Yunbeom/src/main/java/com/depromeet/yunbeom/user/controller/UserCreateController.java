@@ -11,7 +11,6 @@ import com.depromeet.yunbeom.user.controller.port.UserService;
 import com.depromeet.yunbeom.user.domain.User;
 import com.depromeet.yunbeom.user.domain.UserCreate;
 import com.depromeet.yunbeom.user.controller.response.UserResponse;
-import com.depromeet.yunbeom.user.service.UserServiceImpl;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Builder;
@@ -26,7 +25,7 @@ public class UserCreateController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
+    public ResponseEntity<UserResponse> create(@RequestBody UserCreate userCreate) {
         User user = userService.create(userCreate);
         return ResponseEntity
             .status(HttpStatus.CREATED)
