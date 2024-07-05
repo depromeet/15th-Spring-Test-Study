@@ -3,7 +3,7 @@ spring:
     name: nahyeon
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/testdb
+    url: jdbc:h2:tcp://localhost/~/testdb;mode=mysql
     driver-class-name: org.h2.Driver
     username: sa
 

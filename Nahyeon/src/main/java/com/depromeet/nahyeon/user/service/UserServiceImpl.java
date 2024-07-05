@@ -6,34 +6,40 @@ import org.springframework.transaction.annotation.Transactional;
 import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
 import com.depromeet.nahyeon.common.service.port.ClockHolder;
 import com.depromeet.nahyeon.common.service.port.UuidHolder;
+import com.depromeet.nahyeon.user.controller.port.UserService;
 import com.depromeet.nahyeon.user.domain.User;
 import com.depromeet.nahyeon.user.domain.UserCreate;
 import com.depromeet.nahyeon.user.domain.UserStatus;
 import com.depromeet.nahyeon.user.domain.UserUpdate;
 import com.depromeet.nahyeon.user.service.port.UserRepository;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
+@Builder
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final CertificationService certificationService;
 	private final UuidHolder uuidHolder;
 	private final ClockHolder clockHolder;
 
+	@Override
 	public User getById(long id) {
 		return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
 			.orElseThrow(() -> new ResourceNotFoundException("Users", id));
 	}
 
+	@Override
 	public User getByEmail(String email) {
 		return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
 			.orElseThrow(() -> new ResourceNotFoundException("Users", email));
 	}
 
+	@Override
 	@Transactional
 	public User create(UserCreate userCreate) {
 		User user = User.from(userCreate, uuidHolder);
@@ -42,6 +48,7 @@ public class UserService {
 		return user;
 	}
 
+	@Override
 	@Transactional
 	public User update(long id, UserUpdate userUpdate) {
 		User user = getById(id);
@@ -49,6 +56,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
 	@Transactional
 	public void login(long id) {
 		User user = userRepository.findById(id)
@@ -57,6 +65,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	@Override
 	@Transactional
 	public void verifyEmail(long id, String certificationCode) {
 		User user = userRepository.findById(id)

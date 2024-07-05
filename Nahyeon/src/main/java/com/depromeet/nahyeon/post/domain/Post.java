@@ -1,7 +1,5 @@
 package com.depromeet.nahyeon.post.domain;
 
-import java.time.Clock;
-
 import com.depromeet.nahyeon.common.service.port.ClockHolder;
 import com.depromeet.nahyeon.user.domain.User;
 

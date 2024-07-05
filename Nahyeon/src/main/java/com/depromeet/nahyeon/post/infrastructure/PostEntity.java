@@ -43,7 +43,7 @@ public class PostEntity {
 		postEntity.setContent(post.getContent());
 		postEntity.setCreatedAt(post.getCreatedAt());
 		postEntity.setModifiedAt(post.getModifiedAt());
-		postEntity.setWriter(UserEntity.fromModel(post.getWriter()));
+		postEntity.setWriter(UserEntity.from(post.getWriter()));
 		return postEntity;
 	}
 

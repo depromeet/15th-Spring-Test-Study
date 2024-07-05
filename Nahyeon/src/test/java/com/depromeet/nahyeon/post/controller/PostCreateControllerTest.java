@@ -1,55 +1,48 @@
 package com.depromeet.nahyeon.post.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.ResponseEntity;
 
+import com.depromeet.nahyeon.mock.TestClockHolder;
+import com.depromeet.nahyeon.mock.TestContainer;
+import com.depromeet.nahyeon.post.controller.response.PostResponse;
 import com.depromeet.nahyeon.post.domain.PostCreate;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.depromeet.nahyeon.user.domain.User;
+import com.depromeet.nahyeon.user.domain.UserStatus;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureTestDatabase
-@TestPropertySource("classpath:test-application.yml")
-@SqlGroup({
-	@Sql(value = "/sql/post-create-controller-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-	@Sql(value = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-})
-class PostCreateControllerTest {
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
+public class PostCreateControllerTest {
 
 	@Test
-	void 사용자는_게시물을_작성할_수_있다() throws Exception {
+	void 사용자는_게시물을_작성할_수_있다() {
 		// given
+		TestContainer testContainer = TestContainer.builder()
+			.clockHolder(new TestClockHolder(323424142L))
+			.build();
+		testContainer.userRepository.save(User.builder()
+			.id(1L)
+			.email("nahyeonee99@gmail.com")
+			.nickname("nahyeonee99")
+			.address("Seoul")
+			.status(UserStatus.ACTIVE)
+			.certificationCode("aaaaaa-aaaaaa-aaaaaa")
+			.lastLoginAt(100L)
+			.build());
 		PostCreate postCreate = PostCreate.builder()
 			.content("post content")
 			.writerId(1)
 			.build();
 
 		// when
+		ResponseEntity<PostResponse> result = testContainer.postCreateController.create(postCreate);
+
 		// then
-		mockMvc.perform(post("/api/posts")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(postCreate)))
-			.andExpect(status().isCreated())
-			.andExpect(jsonPath("$.id").value(1))
-			.andExpect(jsonPath("$.content").value("post content"))
-			.andExpect(jsonPath("$.writer.id").isNumber())
-			.andExpect(jsonPath("$.writer.nickname").isString());
+		assertThat(result.getStatusCode().value()).isEqualTo(201);
+		assertThat(result.getBody()).isNotNull();
+		assertThat(result.getBody().getId()).isEqualTo(1L);
+		assertThat(result.getBody().getCreatedAt()).isEqualTo(323424142L);
+		assertThat(result.getBody().getWriter().getId()).isEqualTo(1L);
+		assertThat(result.getBody().getWriter().getNickname()).isEqualTo("nahyeonee99");
 	}
 }

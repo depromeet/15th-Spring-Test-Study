@@ -1,4 +1,4 @@
-package com.depromeet.nahyeon.user.infrastructure;
+package com.depromeet.nahyeon.medium;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,6 +13,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.depromeet.nahyeon.user.domain.UserStatus;
+import com.depromeet.nahyeon.user.infrastructure.UserEntity;
+import com.depromeet.nahyeon.user.infrastructure.UserJpaRepository;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest(showSql = true)

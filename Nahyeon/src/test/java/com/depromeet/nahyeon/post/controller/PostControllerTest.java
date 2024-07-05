@@ -1,77 +1,106 @@
 package com.depromeet.nahyeon.post.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.ResponseEntity;
 
+import com.depromeet.nahyeon.common.domain.exception.ResourceNotFoundException;
+import com.depromeet.nahyeon.mock.TestClockHolder;
+import com.depromeet.nahyeon.mock.TestContainer;
+import com.depromeet.nahyeon.post.controller.response.PostResponse;
+import com.depromeet.nahyeon.post.domain.Post;
 import com.depromeet.nahyeon.post.domain.PostUpdate;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.depromeet.nahyeon.user.domain.User;
+import com.depromeet.nahyeon.user.domain.UserStatus;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureTestDatabase
-@TestPropertySource("classpath:test-application.yml")
-@SqlGroup({
-	@Sql(value = "/sql/post-controller-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-	@Sql(value = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-})
-class PostControllerTest {
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
+public class PostControllerTest {
 
 	@Test
-	void 사용자는_게시물을_단건_조회_할_수_있다() throws Exception {
+	void 사용자는_게시물을_단건_조회_할_수_있다() {
 		// given
+		TestContainer testContainer = TestContainer.builder()
+			.clockHolder(new TestClockHolder(323424142L))
+			.build();
+		User user = testContainer.userRepository.save(User.builder()
+			.id(1L)
+			.email("nahyeonee99@gmail.com")
+			.nickname("nahyeonee99")
+			.address("Seoul")
+			.status(UserStatus.ACTIVE)
+			.certificationCode("aaaaaa-aaaaaa-aaaaaa")
+			.lastLoginAt(100L)
+			.build());
+		testContainer.postRepository.save(Post.builder()
+			.id(1L)
+			.content("helloworld")
+			.createdAt(323424142L)
+			.modifiedAt(323424142L)
+			.writer(user)
+			.build());
+
 		// when
+		ResponseEntity<PostResponse> result = testContainer.postController.getById(1L);
+
 		// then
-		mockMvc.perform(get("/api/posts/1"))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.id").value(1))
-			.andExpect(jsonPath("$.content").value("test 1"))
-			.andExpect(jsonPath("$.writer.id").isNumber());
+		assertThat(result.getStatusCode().value()).isEqualTo(200);
+		assertThat(result.getBody()).isNotNull();
+		assertThat(result.getBody().getId()).isEqualTo(1);
+		assertThat(result.getBody().getContent()).isEqualTo("helloworld");
+		assertThat(result.getBody().getWriter().getNickname()).isEqualTo("nahyeonee99");
 	}
 
 	@Test
-	void 사용자는_존재하지_않는_게시물을_조회할_경우_에러가_난다() throws Exception {
+	void 사용자는_존재하지_않는_게시물을_조회할_경우_에러가_난다() {
 		// given
-		// when
-		// then
-		mockMvc.perform(get("/api/posts/100"))
-			.andExpect(status().isNotFound())
-			.andExpect(content().string("Posts에서 ID 100를 찾을 수 없습니다."));
-	}
-
-	@Test
-	void 사용자는_게시물을_수정할_수_있다() throws Exception {
-		// given
-		PostUpdate postUpdateDto = PostUpdate.builder()
-			.content("updated content :)")
+		TestContainer testContainer = TestContainer.builder()
+			.clockHolder(new TestClockHolder(323424142L))
 			.build();
 
 		// when
 		// then
-		mockMvc.perform(put("/api/posts/1")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(postUpdateDto)))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.id").isNumber())
-			.andExpect(jsonPath("$.content").value("updated content :)"))
-			.andExpect(jsonPath("$.writer.id").isNumber())
-			.andExpect(jsonPath("$.writer.email").value("nahyeonee99@gmail.com"))
-			.andExpect(jsonPath("$.writer.nickname").value("nahyeonee99"));
+		Assertions.assertThatThrownBy(() -> {
+			testContainer.postController.getById(100L);
+		}).isInstanceOf(ResourceNotFoundException.class);
+	}
+
+	@Test
+	void 사용자는_게시물을_수정할_수_있다() {
+		// given
+		TestContainer testContainer = TestContainer.builder()
+			.clockHolder(new TestClockHolder(323424142L))
+			.build();
+		User user = testContainer.userRepository.save(User.builder()
+			.id(1L)
+			.email("nahyeonee99@gmail.com")
+			.nickname("nahyeonee99")
+			.address("Seoul")
+			.status(UserStatus.ACTIVE)
+			.certificationCode("aaaaaa-aaaaaa-aaaaaa")
+			.lastLoginAt(100L)
+			.build());
+		testContainer.postRepository.save(Post.builder()
+			.id(1L)
+			.content("helloworld")
+			.createdAt(100L)
+			.writer(user)
+			.build());
+		PostUpdate postUpdate = PostUpdate.builder()
+			.content("update post! :)")
+			.build();
+
+		// when
+		ResponseEntity<PostResponse> result = testContainer.postController.update(1L,
+			postUpdate);
+
+		// then
+		assertThat(result.getStatusCode().value()).isEqualTo(200);
+		assertThat(result.getBody()).isNotNull();
+		assertThat(result.getBody().getId()).isEqualTo(1);
+		assertThat(result.getBody().getContent()).isEqualTo("update post! :)");
+		assertThat(result.getBody().getWriter().getNickname()).isEqualTo("nahyeonee99");
+		assertThat(result.getBody().getCreatedAt()).isEqualTo(100L);
+		assertThat(result.getBody().getModifiedAt()).isEqualTo(323424142L);
 	}
 }
