@@ -26,13 +26,13 @@ public class PostController {
 	private final PostService postService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PostResponse> getPostById(@PathVariable long id) {
+	public ResponseEntity<PostResponse> getById(@PathVariable long id) {
 		return ResponseEntity.ok()
 			.body(PostResponse.from(postService.getById(id)));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
+	public ResponseEntity<PostResponse> update(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
 		return ResponseEntity.ok()
 			.body(PostResponse.from(postService.update(id, postUpdate)));
 	}
