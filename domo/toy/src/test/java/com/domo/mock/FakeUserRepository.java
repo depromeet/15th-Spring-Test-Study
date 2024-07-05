@@ -1,5 +1,6 @@
 package com.domo.mock;
 
+import com.domo.common.domain.exception.ResourceNotFoundException;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;
 import com.domo.user.service.port.UserRepository;
@@ -46,5 +47,10 @@ public class FakeUserRepository implements UserRepository {
             users.add(user);
             return user;
         }
+    }
+
+    @Override
+    public User getById(long id) {
+        return findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id));
     }
 }
