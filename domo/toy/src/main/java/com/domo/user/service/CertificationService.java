@@ -1,10 +1,7 @@
 package com.domo.user.service;
 
-import com.domo.user.infstructure.UserEntity;
 import com.domo.user.service.port.MailSender;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service

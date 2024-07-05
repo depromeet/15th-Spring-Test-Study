@@ -1,11 +1,9 @@
 package com.domo.post.controller;
 
+import com.domo.post.controller.port.PostService;
 import com.domo.post.domain.PostUpdate;
-import com.domo.user.controller.UserController;
 import com.domo.post.controller.response.PostResponse;
-import com.domo.post.infstructure.PostEntity;
-import com.domo.post.service.PostService;
-import com.domo.user.controller.response.UserResponse;
+import com.domo.post.service.PostServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

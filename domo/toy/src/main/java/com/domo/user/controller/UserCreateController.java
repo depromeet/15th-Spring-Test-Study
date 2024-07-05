@@ -1,10 +1,9 @@
 package com.domo.user.controller;
 
+import com.domo.user.controller.port.UserCreateService;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserCreate;
 import com.domo.user.controller.response.UserResponse;
-import com.domo.user.infstructure.UserEntity;
-import com.domo.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +19,11 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserCreateController {
-    private final UserService userService;
+    private final UserCreateService userCreateService;
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
-        User user = userService.create(userCreate);
+        User user = userCreateService.create(userCreate);
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(UserResponse.from(user));

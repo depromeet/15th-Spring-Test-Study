@@ -5,31 +5,23 @@ import com.domo.mock.*;
 import com.domo.post.domain.Post;
 import com.domo.post.domain.PostCreate;
 import com.domo.post.domain.PostUpdate;
-import com.domo.post.service.PostService;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;
-import com.domo.user.service.CertificationService;
-import com.domo.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 class PostServiceTest {
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @BeforeEach
     void setUp() {
         FakePostRepository fakePostRepository = new FakePostRepository();
         FakeUserRepository fakeUserRepository = new FakeUserRepository();
         ClockHolder clockHolder = new TestClockHolder(1678530673958L);
-        this.postService = PostService.builder()
+        this.postService = PostServiceImpl.builder()
                 .postRepository(fakePostRepository)
                 .userRepository(fakeUserRepository)
                 .clockHolder(clockHolder)
