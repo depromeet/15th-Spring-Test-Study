@@ -1,4 +1,4 @@
-package com.domo.medium;
+package com.domo.post.service;
 
 import com.domo.common.service.port.ClockHolder;
 import com.domo.mock.*;

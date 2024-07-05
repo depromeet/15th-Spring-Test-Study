@@ -1,4 +1,4 @@
-package com.domo.medium;
+package com.domo.user.service;
 
 import com.domo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.domo.common.domain.exception.ResourceNotFoundException;
