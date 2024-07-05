@@ -13,9 +13,11 @@ import com.depromeet.yunbeom.post.controller.response.PostResponse;
 import com.depromeet.yunbeom.post.domain.PostUpdate;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "게시물(posts)")
+@Builder
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor

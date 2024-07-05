@@ -24,9 +24,11 @@ import com.depromeet.yunbeom.user.service.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "유저(users)")
+@Builder
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -59,6 +61,7 @@ public class UserController {
     ) {
         User user = userService.getByEmail(email);
         userService.login(user.getId());
+        user = userService.getByEmail(email);
         return ResponseEntity
             .ok()
             .body(MyProfileResponse.from(user));
