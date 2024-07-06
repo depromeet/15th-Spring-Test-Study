@@ -2,6 +2,7 @@ package com.example.demo.medium;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
+import com.example.demo.post.controller.port.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,8 +16,6 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.domain.PostUpdate;
-import com.example.demo.post.infrastructure.PostEntity;
-import com.example.demo.post.service.PostService;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.properties")

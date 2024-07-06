@@ -3,7 +3,7 @@ package com.example.demo.medium;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.any;
 
-import com.example.demo.user.service.UserService;
+import com.example.demo.user.controller.port.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.infrastructure.UserEntity;
 
 @SpringBootTest
 @TestPropertySource("classpath:test-application.properties")

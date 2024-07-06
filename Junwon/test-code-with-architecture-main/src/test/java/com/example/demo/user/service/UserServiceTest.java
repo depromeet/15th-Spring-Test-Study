@@ -6,6 +6,7 @@ import com.example.demo.mock.FakeMailSender;
 import com.example.demo.mock.FakeUserRepository;
 import com.example.demo.mock.TestClockHolder;
 import com.example.demo.mock.TestUuidHolder;
+import com.example.demo.user.controller.port.UserService;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserStatus;
@@ -24,7 +25,7 @@ public class UserServiceTest {
 	void init(){
 		FakeMailSender fakeMailSender = new FakeMailSender();
 		FakeUserRepository fakeUserRepository = new FakeUserRepository();
-		this.userService = UserService.builder()
+		this.userService = UserServiceImpl.builder()
 				.uuidHolder(new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab"))
 				.clockHolder(new TestClockHolder(1678530673958L))
 				.userRepository(fakeUserRepository)
