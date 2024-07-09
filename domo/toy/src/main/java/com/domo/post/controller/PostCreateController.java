@@ -4,6 +4,7 @@ import com.domo.post.controller.port.PostService;
 import com.domo.post.domain.PostCreate;
 import com.domo.post.controller.response.PostResponse;
 import com.domo.post.service.PostServiceImpl;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "게시물(posts)")
 @RestController
+@Builder
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostCreateController {

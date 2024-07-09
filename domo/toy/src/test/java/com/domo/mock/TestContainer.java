@@ -2,6 +2,8 @@ package com.domo.mock;
 
 import com.domo.common.service.port.ClockHolder;
 import com.domo.common.service.port.UuidHolder;
+import com.domo.post.controller.PostController;
+import com.domo.post.controller.PostCreateController;
 import com.domo.post.controller.port.PostService;
 import com.domo.post.service.PostServiceImpl;
 import com.domo.post.service.port.PostRepository;
@@ -24,6 +26,8 @@ public class TestContainer {
     public final UserController userController;
     public final UserCreateController userCreateController;
     public final AuthenticationService authenticationService;
+    public final PostController postController;
+    public final PostCreateController postCreateController;
 
 
     private final PostService postService;
@@ -58,6 +62,12 @@ public class TestContainer {
                 .build();
         this.userCreateController = UserCreateController.builder()
                 .userCreateService(userCreateService)
+                .build();
+        this.postController = PostController.builder()
+                .postService(postService)
+                .build();
+        this.postCreateController = PostCreateController.builder()
+                .postService(postService)
                 .build();
     }
 }
