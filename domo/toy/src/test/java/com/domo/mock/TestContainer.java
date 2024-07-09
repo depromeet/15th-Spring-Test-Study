@@ -20,16 +20,11 @@ public class TestContainer {
     public final MailSender mailSender;
     public final UserRepository userRepository;
     public final PostRepository postRepository;
-    public final UserReadService userReadService;
-    public final UserCreateService userCreateService;
-    public final UserUpdateService userUpdateService;
+    private final UserService userService;
     public final UserController userController;
     public final UserCreateController userCreateController;
-    public final AuthenticationService authenticationService;
     public final PostController postController;
     public final PostCreateController postCreateController;
-
-
     private final PostService postService;
     private final CertificationService certificationService;
 
@@ -50,18 +45,12 @@ public class TestContainer {
                 .certificationService(certificationService)
                 .userRepository(userRepository)
                 .build();
-        this.userReadService = userService;
-        this.userCreateService = userService;
-        this.userUpdateService = userService;
-        this.authenticationService = userService;
+        this.userService = userService;
         this.userController = UserController.builder()
-                .userReadService(userReadService)
-                .userCreateService(userCreateService)
-                .userUpdateService(userUpdateService)
-                .authenticationService(authenticationService)
+                .userService(userService)
                 .build();
         this.userCreateController = UserCreateController.builder()
-                .userCreateService(userCreateService)
+                .userService(userService)
                 .build();
         this.postController = PostController.builder()
                 .postService(postService)
