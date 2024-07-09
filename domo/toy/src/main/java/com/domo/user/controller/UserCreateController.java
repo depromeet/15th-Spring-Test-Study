@@ -1,10 +1,10 @@
 package com.domo.user.controller;
 
+import com.domo.user.controller.port.UserService;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserCreate;
 import com.domo.user.controller.response.UserResponse;
-import com.domo.user.infstructure.UserEntity;
-import com.domo.user.service.UserService;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "유저(users)")
 @RestController
+@Builder
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserCreateController {

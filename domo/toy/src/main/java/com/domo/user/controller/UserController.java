@@ -2,12 +2,13 @@ package com.domo.user.controller;
 
 import java.net.URI;
 
+import com.domo.user.controller.port.*;
 import com.domo.user.controller.response.MyProfileResponse;
 import com.domo.user.controller.response.UserResponse;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserUpdate;
-import com.domo.user.infstructure.UserEntity;
-import com.domo.user.service.UserService;
+import com.domo.user.service.UserServiceImpl;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "유저(users)")
 @RestController
 @RequestMapping("/api/users")
+@Builder
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
     @ResponseStatus
@@ -58,6 +59,7 @@ public class UserController {
     ) {
         User user = userService.getByEmail(email);
         userService.login(user.getId());
+        user = userService.getByEmail(email);
         return ResponseEntity
             .ok()
             .body(MyProfileResponse.from(user));
@@ -75,9 +77,5 @@ public class UserController {
         return ResponseEntity
             .ok()
             .body(MyProfileResponse.from(user));
-    }
-
-    public UserResponse toResponse(User user) {
-        return UserResponse.from(user);
     }
 }

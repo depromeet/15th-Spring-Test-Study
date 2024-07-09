@@ -1,5 +1,6 @@
 package com.domo.user.infstructure;
 
+import com.domo.common.domain.exception.ResourceNotFoundException;
 import com.domo.user.domain.User;
 import com.domo.user.domain.UserStatus;
 import com.domo.user.service.port.UserRepository;
@@ -31,5 +32,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         return userJpaRepository.save(UserEntity.fromDomain(user)).toDomain();
+    }
+
+    @Override
+    public User getById(long id) {
+        return userJpaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id)).toDomain();
     }
 }
