@@ -6,6 +6,7 @@ import com.domo.post.controller.port.PostService;
 import com.domo.post.service.PostServiceImpl;
 import com.domo.post.service.port.PostRepository;
 import com.domo.user.controller.UserController;
+import com.domo.user.controller.UserCreateController;
 import com.domo.user.controller.port.*;
 import com.domo.user.service.CertificationService;
 import com.domo.user.service.UserServiceImpl;
@@ -21,6 +22,7 @@ public class TestContainer {
     public final UserCreateService userCreateService;
     public final UserUpdateService userUpdateService;
     public final UserController userController;
+    public final UserCreateController userCreateController;
     public final AuthenticationService authenticationService;
 
 
@@ -53,6 +55,9 @@ public class TestContainer {
                 .userCreateService(userCreateService)
                 .userUpdateService(userUpdateService)
                 .authenticationService(authenticationService)
+                .build();
+        this.userCreateController = UserCreateController.builder()
+                .userCreateService(userCreateService)
                 .build();
     }
 }
