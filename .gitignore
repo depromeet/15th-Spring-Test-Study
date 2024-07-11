@@ -8,6 +8,8 @@
 # junwon ignore
 Junwon/**/target
 Junwon/**/uiDesigner.xml
+Junwon/**/.idea/
+Junwon/**/misc.xml
 
 # User-specific stuff
 .idea/**/workspace.xml
